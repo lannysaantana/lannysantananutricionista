@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-sage: #7a8574;
+  --color-sage-dark: #5e685a;
+  --color-offwhite: #f7f4ed;
+  --color-beige: #efe8dd;
+  --color-gold: #c9af73;
+  --color-ink: #2d2d2d;
+
+  --background: var(--color-offwhite);
+  --foreground: var(--color-ink);
+}
+
+.dark {
+  --background: #20241f;
+  --foreground: #f2efe6;
+}
+
+* {
+  border-color: theme("colors.sage.DEFAULT" / 15%);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-playfair), serif;
+  letter-spacing: -0.01em;
+}
+
+.font-subtitle {
+  font-family: var(--font-cormorant), serif;
+}
+
+/* Elegant scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: theme("colors.sage.DEFAULT" / 30%);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: theme("colors.sage.DEFAULT" / 50%);
+}
+
+/* Focus ring — accessible but discreet */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.bg-noise {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    theme("colors.sage.DEFAULT" / 8%) 1px,
+    transparent 0
+  );
+  background-size: 24px 24px;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(110deg, #c9af73 0%, #e4d4a8 50%, #c9af73 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
