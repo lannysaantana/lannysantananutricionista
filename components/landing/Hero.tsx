@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/Button";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-noise px-5 pb-20 pt-16 sm:pt-24">
+    <section id="inicio" className="relative overflow-hidden bg-noise px-5 pb-20 pt-16 sm:pt-24 scroll-mt-20">
       <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -26,8 +26,9 @@ export function Hero() {
           </h1>
 
           <p className="mt-6 max-w-xl font-subtitle text-xl italic leading-relaxed text-ink/70 dark:text-offwhite/70 sm:text-2xl">
-            Cada plano alimentar é desenvolvido de forma individualizada,
-            respeitando sua rotina, seus objetivos e sua saúde.
+            Cada paciente possui necessidades únicas. Meu atendimento é
+            totalmente individualizado para ajudar você a conquistar
+            resultados duradouros com saúde, equilíbrio e qualidade de vida.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -37,9 +38,9 @@ export function Hero() {
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
-            <a href="#como-funciona">
+            <a href="#servicos">
               <Button variant="outline" size="lg">
-                Como funciona
+                Conhecer os Serviços
               </Button>
             </a>
           </div>

@@ -59,7 +59,7 @@ export function AssistenteLanny() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         aria-label="Abrir Assistente Lanny"
-        className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-sage-dark text-offwhite shadow-card"
+        className="fixed bottom-24 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-sage-dark text-offwhite shadow-card lg:bottom-5"
       >
         {open ? <X className="h-5 w-5" /> : <MessageCircle className="h-5 w-5" />}
       </motion.button>
@@ -71,7 +71,7 @@ export function AssistenteLanny() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.95 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="fixed bottom-24 right-5 z-50 flex h-[28rem] w-[22rem] max-w-[calc(100vw-2.5rem)] flex-col overflow-hidden rounded-2xl border border-sage/15 bg-offwhite shadow-card dark:bg-[#20241f]"
+            className="fixed bottom-[10.5rem] right-5 z-50 flex h-[28rem] w-[22rem] max-w-[calc(100vw-2.5rem)] flex-col overflow-hidden rounded-2xl border border-sage/15 bg-offwhite shadow-card dark:bg-[#20241f] lg:bottom-24"
           >
             <div className="flex items-center gap-3 border-b border-sage/10 bg-sage-dark px-4 py-3 text-offwhite">
               <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gold/20">

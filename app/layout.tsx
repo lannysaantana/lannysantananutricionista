@@ -3,7 +3,7 @@ import { playfair, cormorant, poppins } from "@/lib/fonts";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { QueryProvider } from "@/components/providers/QueryProvider";
 import { AssistenteLanny } from "@/components/chatbot/AssistenteLanny";
-import { SITE_NAME, SITE_URL, SITE_DESCRIPTION } from "@/lib/config";
+import { SITE_NAME, SITE_URL, SITE_DESCRIPTION, BUSINESS_INFO, BUSINESS_WHATSAPP } from "@/lib/config";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -40,14 +40,27 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+// NOTE: telephone/address/sameAs pull from lib/config.ts placeholders until
+// the real business details are confirmed — no fabricated ratings/reviews
+// are included here (aggregateRating requires real, collected reviews).
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "MedicalBusiness",
-  name: "Lanny Santana Nutricionista",
+  name: SITE_NAME,
   description: SITE_DESCRIPTION,
   url: SITE_URL,
+  image: `${SITE_URL}/og-image.jpg`,
+  email: BUSINESS_INFO.email,
+  telephone: `+${BUSINESS_WHATSAPP}`,
   medicalSpecialty: "Nutrition",
   priceRange: "$$",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: BUSINESS_INFO.city,
+    addressRegion: BUSINESS_INFO.state,
+    addressCountry: "BR",
+  },
+  sameAs: [BUSINESS_INFO.instagramUrl],
 };
 
 export default function RootLayout({
