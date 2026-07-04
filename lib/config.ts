@@ -11,17 +11,17 @@ export const BUSINESS_WHATSAPP = process.env.WHATSAPP_BUSINESS_NUMBER ?? "550000
 export const WHATSAPP_DEFAULT_MESSAGE =
   "Olá! Gostaria de tirar uma dúvida sobre as consultas.";
 
-// TODO: replace these placeholders with the real business details before
-// launch — intentionally left as obvious placeholders rather than
-// fabricated real-looking data (CRN, address, reviews, etc).
+// TODO: e-mail e Instagram ainda são placeholders — substitua pelos reais
+// quando disponíveis. Endereço completo será enviado por WhatsApp após a
+// aprovação da consulta, por isso mostramos apenas o bairro por enquanto.
 export const BUSINESS_INFO = {
-  crn: "CRN-0 00000/P", // TODO: número de registro profissional real
+  crn: "CRN 50871",
   email: "contato@lannysantana.com.br",
   instagramHandle: "@lannysantana.nutri",
   instagramUrl: "https://instagram.com/lannysantana.nutri",
-  city: "Sua cidade",
-  state: "UF",
-  addressLine: "Endereço do consultório a definir",
+  city: "João Pessoa",
+  state: "PB",
+  addressLine: "Manaíra",
 } as const;
 
 export const SERVICE_PLANS = [

@@ -5,10 +5,8 @@ import { motion } from "framer-motion";
 import { GraduationCap, Award, Stethoscope } from "lucide-react";
 import { BUSINESS_INFO } from "@/lib/config";
 
-// TODO: substituir pelos dados reais (especializações, cursos e áreas de
-// atuação) — mantidos como exemplo até serem confirmados.
-const SPECIALIZATIONS = ["Nutrição Clínica", "Nutrição Esportiva", "Nutrição Materno-Infantil"];
-const COURSES = ["Bioimpedância e Avaliação Física", "Prescrição de Suplementação"];
+const EDUCATION = ["Nutricionista pela Universidade Federal da Paraíba (UFPB)"];
+const POST_GRADUATION = ["Saúde da Mulher", "Estética", "Esporte"];
 const AREAS = ["Emagrecimento", "Hipertrofia", "Reeducação alimentar", "Saúde intestinal", "Gestação"];
 
 export function AboutMe() {
@@ -60,10 +58,10 @@ export function AboutMe() {
             <div>
               <p className="mb-2 flex items-center gap-2 font-sans text-sm font-medium text-ink dark:text-offwhite">
                 <GraduationCap className="h-4 w-4 text-sage-dark dark:text-gold" />
-                Especializações
+                Formação
               </p>
               <ul className="space-y-1 font-sans text-sm text-ink/70 dark:text-offwhite/70">
-                {SPECIALIZATIONS.map((item) => (
+                {EDUCATION.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
@@ -71,10 +69,10 @@ export function AboutMe() {
             <div>
               <p className="mb-2 flex items-center gap-2 font-sans text-sm font-medium text-ink dark:text-offwhite">
                 <Award className="h-4 w-4 text-sage-dark dark:text-gold" />
-                Cursos complementares
+                Pós-graduanda em
               </p>
               <ul className="space-y-1 font-sans text-sm text-ink/70 dark:text-offwhite/70">
-                {COURSES.map((item) => (
+                {POST_GRADUATION.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
