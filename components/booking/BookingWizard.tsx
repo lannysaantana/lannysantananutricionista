@@ -10,10 +10,13 @@ import { AgeStep } from "@/components/booking/steps/AgeStep";
 import { PhoneStep } from "@/components/booking/steps/PhoneStep";
 import { EmailStep } from "@/components/booking/steps/EmailStep";
 import { ObjectiveStep } from "@/components/booking/steps/ObjectiveStep";
-import { LimitationStep } from "@/components/booking/steps/LimitationStep";
-import { ConsultationTypeStep } from "@/components/booking/steps/ConsultationTypeStep";
-import { CalendarStep } from "@/components/booking/steps/CalendarStep";
-import { SummaryStep } from "@/components/booking/steps/SummaryStep";
+import { ServicoStep } from "@/components/booking/steps/ServicoStep";
+import { LimitacaoStep } from "@/components/booking/steps/LimitacaoStep";
+import { PacoteStep } from "@/components/booking/steps/PacoteStep";
+import { PagamentoMetodoStep } from "@/components/booking/steps/PagamentoMetodoStep";
+import { AgendaSessoesStep } from "@/components/booking/steps/AgendaSessoesStep";
+import { PoliticasStep } from "@/components/booking/steps/PoliticasStep";
+import { ResumoStep } from "@/components/booking/steps/ResumoStep";
 import type { BookingStep } from "@/types/booking";
 
 const STEP_COMPONENTS: Record<BookingStep, React.ComponentType> = {
@@ -22,10 +25,13 @@ const STEP_COMPONENTS: Record<BookingStep, React.ComponentType> = {
   telefone: PhoneStep,
   email: EmailStep,
   objetivo: ObjectiveStep,
-  limitacao: LimitationStep,
-  tipo_consulta: ConsultationTypeStep,
-  agenda: CalendarStep,
-  resumo: SummaryStep,
+  servico: ServicoStep,
+  limitacao: LimitacaoStep,
+  pacote: PacoteStep,
+  pagamento_metodo: PagamentoMetodoStep,
+  agenda_sessoes: AgendaSessoesStep,
+  politicas: PoliticasStep,
+  resumo: ResumoStep,
 };
 
 export function BookingWizard() {

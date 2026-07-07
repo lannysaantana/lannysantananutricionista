@@ -5,6 +5,7 @@ import {
   listBlockedDates,
   listBusinessHours,
 } from "@/services/availabilityService";
+import { getBookedSessionTimes } from "@/services/orderService";
 
 /**
  * Calendar provider contract. Implement this interface to plug in a real
@@ -45,10 +46,11 @@ class SupabaseCalendarProvider implements CalendarProvider {
   async getSlotsForDate(date: string): Promise<TimeSlot[]> {
     const weekday = new Date(`${date}T00:00:00`).getDay();
 
-    const [hours, blocked, bookedTimes] = await Promise.all([
+    const [hours, blocked, bookedAppointmentTimes, bookedSessionTimes] = await Promise.all([
       listBusinessHours(),
       listBlockedDates(),
       getBookedTimes(date),
+      getBookedSessionTimes(date),
     ]);
 
     const dayHours = hours.find((h) => h.weekday === weekday);
@@ -57,7 +59,9 @@ class SupabaseCalendarProvider implements CalendarProvider {
 
     const isToday = date === format(new Date(), "yyyy-MM-dd");
     const nowMinutes = new Date().getHours() * 60 + new Date().getMinutes();
-    const bookedSet = new Set(bookedTimes.map((t) => t.slice(0, 5)));
+    const bookedSet = new Set(
+      [...bookedAppointmentTimes, ...bookedSessionTimes].map((t) => t.slice(0, 5))
+    );
 
     const start = timeToMinutes(dayHours.start_time);
     const end = timeToMinutes(dayHours.end_time);

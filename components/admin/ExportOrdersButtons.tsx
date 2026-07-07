@@ -2,17 +2,17 @@
 
 import { FileSpreadsheet, FileText } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { exportAppointmentsToCSV, exportAppointmentsToExcel } from "@/utils/exportAppointments";
-import type { Appointment } from "@/types/appointment";
+import { exportOrdersToCSV, exportOrdersToExcel } from "@/utils/exportOrders";
+import type { Order } from "@/types/order";
 
-export function ExportButtons({ appointments }: { appointments: Appointment[] }) {
+export function ExportOrdersButtons({ orders }: { orders: Order[] }) {
   return (
     <div className="flex gap-2">
       <Button
         variant="outline"
         size="sm"
-        disabled={appointments.length === 0}
-        onClick={() => exportAppointmentsToExcel(appointments)}
+        disabled={orders.length === 0}
+        onClick={() => exportOrdersToExcel(orders)}
       >
         <FileSpreadsheet className="h-4 w-4" />
         Excel
@@ -20,8 +20,8 @@ export function ExportButtons({ appointments }: { appointments: Appointment[] })
       <Button
         variant="outline"
         size="sm"
-        disabled={appointments.length === 0}
-        onClick={() => exportAppointmentsToCSV(appointments)}
+        disabled={orders.length === 0}
+        onClick={() => exportOrdersToCSV(orders)}
       >
         <FileText className="h-4 w-4" />
         CSV

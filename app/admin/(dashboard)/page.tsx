@@ -1,33 +1,30 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { CalendarClock, Users, BadgeCheck, Wallet } from "lucide-react";
-import { AppointmentFiltersBar } from "@/components/admin/AppointmentFilters";
-import { AppointmentsTable } from "@/components/admin/AppointmentsTable";
-import { ExportButtons } from "@/components/admin/ExportButtons";
+import { OrdersTable } from "@/components/admin/OrdersTable";
+import { ExportOrdersButtons } from "@/components/admin/ExportOrdersButtons";
 import { Card } from "@/components/ui/Card";
-import { useAppointments } from "@/hooks/useAppointments";
+import { useOrders } from "@/hooks/useOrders";
 import { formatCurrencyBRL } from "@/utils/formatters";
-import type { AppointmentFilters } from "@/types/appointment";
 
 export default function AdminDashboardPage() {
-  const [filters, setFilters] = useState<AppointmentFilters>({ status: "all", consultationType: "all" });
-  const { data: appointments = [], isLoading } = useAppointments(filters);
+  const { data: orders = [] } = useOrders();
 
   const stats = useMemo(() => {
-    const confirmed = appointments.filter((a) => a.status === "confirmed").length;
-    const revenue = appointments
-      .filter((a) => a.payment_status === "paid")
-      .reduce((sum, a) => sum + a.amount, 0);
-    return { total: appointments.length, confirmed, revenue };
-  }, [appointments]);
+    const confirmed = orders.filter((o) => o.status === "confirmed").length;
+    const revenue = orders
+      .filter((o) => o.payment_status === "paid")
+      .reduce((sum, o) => sum + o.amount_cents, 0);
+    return { total: orders.length, confirmed, revenue };
+  }, [orders]);
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-2xl text-ink dark:text-offwhite">Agenda de consultas</h1>
+        <h1 className="font-display text-2xl text-ink dark:text-offwhite">Pedidos</h1>
         <p className="mt-1 font-sans text-sm text-ink/60 dark:text-offwhite/60">
-          Gerencie pacientes, pagamentos e horários.
+          Gerencie pacientes, pagamentos e sessões agendadas.
         </p>
       </div>
 
@@ -37,7 +34,7 @@ export default function AdminDashboardPage() {
             <Users className="h-5 w-5" />
           </span>
           <div>
-            <p className="font-sans text-xs text-ink/50 dark:text-offwhite/50">Total no período</p>
+            <p className="font-sans text-xs text-ink/50 dark:text-offwhite/50">Total de pedidos</p>
             <p className="font-display text-xl text-ink dark:text-offwhite">{stats.total}</p>
           </div>
         </Card>
@@ -46,7 +43,7 @@ export default function AdminDashboardPage() {
             <BadgeCheck className="h-5 w-5" />
           </span>
           <div>
-            <p className="font-sans text-xs text-ink/50 dark:text-offwhite/50">Confirmadas</p>
+            <p className="font-sans text-xs text-ink/50 dark:text-offwhite/50">Confirmados</p>
             <p className="font-display text-xl text-ink dark:text-offwhite">{stats.confirmed}</p>
           </div>
         </Card>
@@ -63,17 +60,15 @@ export default function AdminDashboardPage() {
         </Card>
       </div>
 
-      <AppointmentFiltersBar filters={filters} onChange={setFilters} />
-
       <div className="flex items-center justify-between">
         <p className="flex items-center gap-2 font-sans text-sm text-ink/60 dark:text-offwhite/60">
           <CalendarClock className="h-4 w-4" />
-          {appointments.length} agendamento(s)
+          {orders.length} pedido(s)
         </p>
-        <ExportButtons appointments={appointments} />
+        <ExportOrdersButtons orders={orders} />
       </div>
 
-      <AppointmentsTable appointments={appointments} isLoading={isLoading} />
+      <OrdersTable />
     </div>
   );
 }

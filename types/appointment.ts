@@ -1,4 +1,4 @@
-import type { ConsultationType, PatientObjective } from "./booking";
+import type { PatientObjective } from "./booking";
 
 export type AppointmentStatus =
   | "pending"
@@ -8,9 +8,14 @@ export type AppointmentStatus =
 
 export type PaymentStatus = "pending" | "paid" | "failed" | "refunded";
 
+/** @deprecated superseded by ServicePlanKey in types/order.ts */
+export type ConsultationType = "presencial" | "teleconsulta";
+
 /**
- * Row shape mirroring the Supabase "appointments" table.
- * Keep in sync with lib/supabase/schema.sql.
+ * Row shape mirroring the legacy Supabase "appointments" table (see
+ * lib/supabase/schema.sql). Superseded by orders/order_sessions
+ * (types/order.ts) for new bookings — kept only so `get_booked_slots`
+ * still type-checks against any pre-existing rows.
  */
 export type Appointment = {
   id: string;
@@ -38,11 +43,3 @@ export type AppointmentInsert = Omit<
   status?: AppointmentStatus;
   payment_status?: PaymentStatus;
 };
-
-export interface AppointmentFilters {
-  search?: string;
-  status?: AppointmentStatus | "all";
-  consultationType?: ConsultationType | "all";
-  dateFrom?: string;
-  dateTo?: string;
-}

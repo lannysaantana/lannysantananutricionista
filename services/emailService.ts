@@ -1,4 +1,4 @@
-import type { Appointment } from "@/types/appointment";
+import type { Order, OrderSession } from "@/types/order";
 import { formatDateLong } from "@/utils/formatters";
 
 /**
@@ -6,23 +6,24 @@ import { formatDateLong } from "@/utils/formatters";
  * Docs: https://resend.com/docs
  * Requires RESEND_API_KEY (server-side only).
  */
-export async function sendAppointmentConfirmationEmail(
-  appointment: Appointment
+export async function sendOrderConfirmationEmail(
+  order: Order,
+  firstSession: OrderSession
 ): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY;
 
   if (!apiKey) {
     console.info(
       "[emailService] RESEND_API_KEY not set — skipping confirmation email for",
-      appointment.id
+      order.id
     );
     return;
   }
 
   const subject = "Sua consulta com Lanny Santana foi confirmada";
-  const body = `Olá ${appointment.name}, sua consulta está agendada para ${formatDateLong(
-    appointment.appointment_date
-  )} às ${appointment.appointment_time}.`;
+  const body = `Olá ${order.name}, sua primeira sessão (${firstSession.label}) está agendada para ${formatDateLong(
+    firstSession.session_date
+  )} às ${firstSession.session_time}.`;
 
   // TODO: POST https://api.resend.com/emails with RESEND_FROM_EMAIL as sender.
   void subject;
