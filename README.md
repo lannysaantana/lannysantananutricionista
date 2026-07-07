@@ -78,10 +78,9 @@ Veja [.env.example](.env.example) para a lista completa e comentada. Resumo:
 
 - **Supabase**: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`,
   `SUPABASE_SERVICE_ROLE_KEY` — banco de dados e autenticação do painel admin.
-- **Pagamento**: `NEXT_PUBLIC_PAYMENT_PROVIDER` (`asaas` | `stripe` |
-  `mercadopago`) e `NEXT_PUBLIC_PAYMENT_URL` — enquanto a integração completa
-  de cada gateway não é implementada, o botão "Confirmar e pagar" redireciona
-  para essa URL genérica.
+- **Pagamento**: gateway ativo é o Mercado Pago (Checkout Pro). Defina
+  `MERCADOPAGO_ACCESS_TOKEN` (server-only) para o botão "Confirmar e pagar"
+  gerar uma cobrança real; sem ele, o checkout retorna erro.
 - **Agenda**: `NEXT_PUBLIC_CALENDAR_PROVIDER` (`mock` | `google` | `calendly`)
   — por padrão usa um provedor mock com horários de exemplo.
 - **WhatsApp / Resend / OpenAI**: chaves para as integrações preparadas (ver
@@ -103,8 +102,10 @@ clara e comentários `TODO` indicando exatamente onde plugar a chamada real:
 
 - [services/calendarService.ts](services/calendarService.ts) — `CalendarProvider`
   com implementação mock + esqueletos para Google Calendar e Calendly.
-- [services/paymentService.ts](services/paymentService.ts) — `PaymentProvider`
-  com esqueletos para Asaas, Stripe e Mercado Pago.
+- [services/paymentService.ts](services/paymentService.ts) — chama
+  `app/api/checkout/route.ts`, que gera a cobrança real no Mercado Pago
+  (Checkout Pro). `app/api/webhooks/mercadopago/route.ts` recebe a
+  confirmação de pagamento e atualiza o pedido no Supabase.
 - [services/whatsappService.ts](services/whatsappService.ts) — WhatsApp
   Business Cloud API.
 - [services/emailService.ts](services/emailService.ts) — e-mails transacionais
