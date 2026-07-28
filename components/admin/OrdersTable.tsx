@@ -1,13 +1,68 @@
 "use client";
 
 import { useState } from "react";
+import { differenceInYears } from "date-fns";
 import { CheckCircle, XCircle, ChevronDown, ChevronUp, Clock } from "lucide-react";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { useOrderMutations, useOrderSessionsGrouped, useOrders } from "@/hooks/useOrders";
 import { useServicePlans } from "@/hooks/usePricing";
 import { formatCurrencyBRL, formatDateShort } from "@/utils/formatters";
+import { PATIENT_SEX_LABELS, PATIENT_OBJECTIVE_LABELS, type PatientSex } from "@/types/booking";
 import { cn } from "@/lib/utils";
 import type { Order, OrderSession } from "@/types/order";
+
+function patientAge(order: Order): number | null {
+  if (order.birth_date) return differenceInYears(new Date(), new Date(`${order.birth_date}T00:00:00`));
+  return order.age || null;
+}
+
+function PatientDetails({ order }: { order: Order }) {
+  const age = patientAge(order);
+  const rows: { label: string; value: string }[] = [
+    { label: "Idade", value: age ? `${age} anos` : "—" },
+    { label: "Sexo", value: order.sex ? (PATIENT_SEX_LABELS[order.sex as PatientSex] ?? order.sex) : "—" },
+    {
+      label: "Objetivo",
+      value:
+        order.objective === "outro" && order.other_objective
+          ? order.other_objective
+          : (PATIENT_OBJECTIVE_LABELS[order.objective] ?? "—"),
+    },
+    { label: "Telefone", value: order.phone || "—" },
+    { label: "WhatsApp", value: order.whatsapp || "—" },
+    {
+      label: "Cidade/Estado",
+      value: order.city || order.state ? `${order.city ?? "—"} / ${order.state ?? "—"}` : "—",
+    },
+    { label: "Profissão", value: order.profession || "—" },
+    {
+      label: "Altura/Peso",
+      value:
+        order.height_cm || order.weight_kg
+          ? `${order.height_cm ? `${order.height_cm} cm` : "—"} / ${order.weight_kg ? `${order.weight_kg} kg` : "—"}`
+          : "—",
+    },
+    { label: "Medicamentos em uso", value: order.medications_in_use || "—" },
+    {
+      label: "Usa GLP-1",
+      value: order.uses_glp1 ? `Sim — ${order.glp1_medication || "não informado"}` : "Não",
+    },
+    { label: "Limitação física", value: order.has_locomotion_limitation ? "Sim" : "Não" },
+  ];
+
+  return (
+    <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 border-b border-sage/10 px-4 py-3 sm:grid-cols-3">
+      {rows.map((row) => (
+        <div key={row.label}>
+          <p className="font-sans text-[10px] uppercase tracking-wide text-ink/40 dark:text-offwhite/40">
+            {row.label}
+          </p>
+          <p className="font-sans text-xs text-ink/80 dark:text-offwhite/80">{row.value}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function statusColor(status: string) {
   if (status === "confirmed") return "bg-sage/15 text-sage-dark";
@@ -98,7 +153,14 @@ function OrderRow({ order, sessions }: { order: Order; sessions: OrderSession[] 
           {expanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
         </button>
         <div className="min-w-[160px] flex-1">
-          <p className="font-sans text-sm font-medium text-ink dark:text-offwhite">{order.name}</p>
+          <p className="font-sans text-sm font-medium text-ink dark:text-offwhite">
+            {order.name}
+            {patientAge(order) && (
+              <span className="ml-1.5 font-normal text-ink/50 dark:text-offwhite/50">
+                · {patientAge(order)} anos
+              </span>
+            )}
+          </p>
           <p className="font-sans text-xs text-ink/50 dark:text-offwhite/50">{order.email}</p>
         </div>
         <span className="font-sans text-sm text-ink/80 dark:text-offwhite/80">
@@ -143,6 +205,7 @@ function OrderRow({ order, sessions }: { order: Order; sessions: OrderSession[] 
 
       {expanded && (
         <div className="mb-3 ml-9 mr-4 rounded-xl border border-sage/10 bg-sage/[0.03]">
+          <PatientDetails order={order} />
           {sessions.map((session) => (
             <SessionRow key={session.id} session={session} />
           ))}
