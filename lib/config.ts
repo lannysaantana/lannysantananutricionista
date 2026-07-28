@@ -3,7 +3,7 @@
 export const SITE_NAME = "Lanny Santana Nutricionista";
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 export const SITE_DESCRIPTION =
-  "Nutrição personalizada para transformar sua saúde. Consultas presenciais e teleconsulta com plano alimentar 100% individualizado.";
+  "Nutrição baseada em ciência, estratégia e acompanhamento personalizado. Teleconsulta com plano alimentar 100% individualizado.";
 
 export const BUSINESS_WHATSAPP = process.env.WHATSAPP_BUSINESS_NUMBER ?? "5500000000000";
 export const WHATSAPP_DEFAULT_MESSAGE =

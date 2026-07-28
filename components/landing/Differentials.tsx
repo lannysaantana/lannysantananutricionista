@@ -2,57 +2,57 @@
 
 import { motion } from "framer-motion";
 import {
-  UserCheck,
-  ClipboardList,
-  Activity,
   Scale,
-  Video,
-  Building2,
+  ClipboardList,
   Headset,
-  Trophy,
+  FlaskConical,
+  GraduationCap,
+  Compass,
+  CalendarClock,
+  UserCheck,
 } from "lucide-react";
 import { Card, CardTitle, CardDescription } from "@/components/ui/Card";
 
 const DIFFERENTIALS = [
   {
-    icon: UserCheck,
-    title: "Atendimento individualizado",
-    description: "Cada consulta é pensada para a sua rotina e seus objetivos.",
+    icon: Scale,
+    title: "Bioimpedância 3D",
+    description: "Análise completa da composição corporal, feita online.",
   },
   {
     icon: ClipboardList,
-    title: "Plano alimentar personalizado",
+    title: "Plano alimentar individualizado",
     description: "Nada de dietas prontas — o plano é construído com você.",
   },
   {
-    icon: Activity,
-    title: "Avaliação física completa",
-    description: "Acompanhamento de medidas e evolução ao longo do processo.",
-  },
-  {
-    icon: Scale,
-    title: "Bioimpedância",
-    description: "Análise de composição corporal presencial ou online.",
-  },
-  {
-    icon: Video,
-    title: "Teleconsulta",
-    description: "Atendimento por videochamada, onde você estiver.",
-  },
-  {
-    icon: Building2,
-    title: "Consulta presencial",
-    description: "Ambiente acolhedor pensado para o seu conforto.",
-  },
-  {
     icon: Headset,
-    title: "Suporte online",
+    title: "Suporte próximo via WhatsApp",
     description: "Acompanhamento contínuo entre uma consulta e outra.",
   },
   {
-    icon: Trophy,
-    title: "Plataforma exclusiva de desafios",
-    description: "Motivação extra para manter o foco nos seus resultados.",
+    icon: FlaskConical,
+    title: "Nutrição baseada em evidências científicas",
+    description: "Estratégias respaldadas por ciência, não por modismos.",
+  },
+  {
+    icon: GraduationCap,
+    title: "Educação nutricional",
+    description: "Você entende o porquê de cada orientação do seu plano.",
+  },
+  {
+    icon: Compass,
+    title: "Estratégias sustentáveis",
+    description: "Mudanças que cabem na sua rotina e duram no longo prazo.",
+  },
+  {
+    icon: CalendarClock,
+    title: "Check-ins periódicos",
+    description: "Ajustes ao longo do caminho para manter você no rumo certo.",
+  },
+  {
+    icon: UserCheck,
+    title: "Acompanhamento personalizado",
+    description: "Cada consulta é pensada para a sua rotina e seus objetivos.",
   },
 ];
 

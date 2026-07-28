@@ -4,8 +4,6 @@ import { Differentials } from "@/components/landing/Differentials";
 import { HowItWorks } from "@/components/landing/HowItWorks";
 import { Services } from "@/components/landing/Services";
 import { AboutMe } from "@/components/landing/AboutMe";
-import { Results } from "@/components/landing/Results";
-import { Testimonials } from "@/components/landing/Testimonials";
 import { FAQ } from "@/components/landing/FAQ";
 import { FinalCTA } from "@/components/landing/FinalCTA";
 import { Footer } from "@/components/landing/Footer";
@@ -21,8 +19,6 @@ export default function HomePage() {
       <HowItWorks />
       <Services />
       <AboutMe />
-      <Results />
-      <Testimonials />
       <FAQ />
       <FinalCTA />
       <Footer />

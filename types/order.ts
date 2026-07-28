@@ -1,12 +1,7 @@
 import type { PatientObjective } from "./booking";
 
 /** Matches the seeded rows in service_plans.key — extend there, not here. */
-export type ServicePlanKey =
-  | "presencial"
-  | "teleconsulta"
-  | "protocolo_trimestral"
-  | "glp1_essencial"
-  | "glp1_premium";
+export type ServicePlanKey = "consulta_online" | "plano_plus" | "glp1_suporte_metabolico";
 
 export type PlanTier = "base" | "essential" | "recommended";
 export type PaymentMethod = "pix" | "cartao";
@@ -48,10 +43,21 @@ export type Order = {
   id: string;
   name: string;
   age: number;
+  birth_date: string | null;
+  sex: string | null;
   phone: string;
+  whatsapp: string | null;
   email: string;
+  city: string | null;
+  state: string | null;
+  profession: string | null;
   objective: PatientObjective;
   other_objective: string | null;
+  height_cm: number | null;
+  weight_kg: number | null;
+  medications_in_use: string | null;
+  uses_glp1: boolean;
+  glp1_medication: string | null;
   has_locomotion_limitation: boolean;
   service_plan_key: ServicePlanKey;
   selected_tier: PlanTier;
@@ -80,7 +86,23 @@ export type OrderInsert = Pick<
   | "accepted_cancellation_policy"
   | "amount_cents"
 > &
-  Partial<Pick<Order, "other_objective">>;
+  Partial<
+    Pick<
+      Order,
+      | "other_objective"
+      | "birth_date"
+      | "sex"
+      | "whatsapp"
+      | "city"
+      | "state"
+      | "profession"
+      | "height_cm"
+      | "weight_kg"
+      | "medications_in_use"
+      | "uses_glp1"
+      | "glp1_medication"
+    >
+  >;
 
 export type OrderSession = {
   id: string;

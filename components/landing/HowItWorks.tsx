@@ -1,14 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Target, CalendarCheck, CreditCard, FileText, CheckCircle2 } from "lucide-react";
+import { CalendarCheck, ClipboardList, Video, Salad, TrendingUp } from "lucide-react";
 
 const STEPS = [
-  { icon: Target, title: "Escolha o tipo de atendimento" },
-  { icon: CalendarCheck, title: "Selecione o melhor horário" },
-  { icon: CreditCard, title: "Realize o pagamento" },
-  { icon: FileText, title: "Receba acesso à Pré-Consulta" },
-  { icon: CheckCircle2, title: "Compareça à consulta" },
+  { icon: CalendarCheck, title: "Agendamento online" },
+  { icon: ClipboardList, title: "Preenchimento da anamnese" },
+  { icon: Video, title: "Consulta por vídeo" },
+  { icon: Salad, title: "Plano alimentar personalizado" },
+  { icon: TrendingUp, title: "Acompanhamento conforme plano escolhido" },
 ];
 
 export function HowItWorks() {

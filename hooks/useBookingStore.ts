@@ -8,7 +8,7 @@ import {
   type BookingStep,
 } from "@/types/booking";
 import type { PendingSession, ServicePlanKey } from "@/types/order";
-import { getPackageSessions, usesInPersonVisits } from "@/lib/packages";
+import { getPackageSessions } from "@/lib/packages";
 
 interface BookingStore {
   data: BookingFormData;
@@ -17,15 +17,13 @@ interface BookingStore {
 
   setField: <K extends keyof BookingFormData>(key: K, value: BookingFormData[K]) => void;
   goTo: (step: BookingStep) => void;
-  /** Advances through the simple linear prefix (nome → ... → servico). */
+  /** Advances through the simple linear prefix (dados_pessoais → ... → servico). */
   next: () => void;
   back: () => void;
   reset: () => void;
 
-  /** Step 'servico' → decides whether 'limitacao' is needed. */
+  /** Step 'servico' → sets the chosen plan and moves to 'pacote'. */
   chooseService: (plan: ServicePlanKey) => void;
-  /** Step 'limitacao' → resolves the final plan and moves on. */
-  answerLimitation: (hasLimitation: boolean) => void;
   /** Step 'pacote' → sets the tier, builds the session list, moves on. */
   choosePacoteTier: (tier: BookingFormData["tier"]) => void;
   /** Step 'pagamento_metodo' → moves to scheduling. */
@@ -40,7 +38,7 @@ export const useBookingStore = create<BookingStore>()(
   persist(
     (set, get) => ({
       data: INITIAL_BOOKING_DATA,
-      step: "nome",
+      step: "dados_pessoais",
       history: [],
 
       setField: (key, value) =>
@@ -51,11 +49,11 @@ export const useBookingStore = create<BookingStore>()(
 
       next: () => {
         const LINEAR_PREFIX: BookingStep[] = [
-          "nome",
-          "idade",
-          "telefone",
-          "email",
+          "dados_pessoais",
+          "contato",
+          "localizacao",
           "objetivo",
+          "saude",
           "servico",
         ];
         const { step, history } = get();
@@ -77,28 +75,12 @@ export const useBookingStore = create<BookingStore>()(
         if (prevStep) set({ step: prevStep, history: prevHistory });
       },
 
-      reset: () => set({ data: INITIAL_BOOKING_DATA, step: "nome", history: [] }),
+      reset: () => set({ data: INITIAL_BOOKING_DATA, step: "dados_pessoais", history: [] }),
 
       chooseService: (plan) => {
         const { data, step, history } = get();
-        const nextData = { ...data, selectedPlan: plan };
-
-        if (usesInPersonVisits(plan)) {
-          set({ data: nextData, step: "limitacao", history: [...history, step] });
-        } else {
-          set({
-            data: { ...nextData, resolvedPlan: plan },
-            step: "pacote",
-            history: [...history, step],
-          });
-        }
-      },
-
-      answerLimitation: (hasLimitation) => {
-        const { data, step, history } = get();
-        const resolvedPlan: ServicePlanKey = hasLimitation ? "teleconsulta" : (data.selectedPlan ?? "presencial");
         set({
-          data: { ...data, hasLocomotionLimitation: hasLimitation, resolvedPlan },
+          data: { ...data, plan },
           step: "pacote",
           history: [...history, step],
         });
@@ -106,8 +88,8 @@ export const useBookingStore = create<BookingStore>()(
 
       choosePacoteTier: (tier) => {
         const { data, step, history } = get();
-        if (!data.resolvedPlan) return;
-        const sessions: PendingSession[] = getPackageSessions(data.resolvedPlan, tier);
+        if (!data.plan) return;
+        const sessions: PendingSession[] = getPackageSessions(data.plan);
         set({
           data: { ...data, tier, sessions, currentSessionIndex: 0 },
           step: "pagamento_metodo",
@@ -152,10 +134,10 @@ export const useBookingStore = create<BookingStore>()(
     {
       name: "lanny-booking-wizard",
       // Bump whenever BookingFormData/BookingStep shape changes — mismatched
-      // persisted state (e.g. from before the package-based flow) would
+      // persisted state (e.g. from before the teleconsulta-only pivot) would
       // otherwise silently desync the wizard instead of just resetting.
-      version: 2,
-      migrate: () => ({ data: INITIAL_BOOKING_DATA, step: "nome", history: [] }),
+      version: 3,
+      migrate: () => ({ data: INITIAL_BOOKING_DATA, step: "dados_pessoais", history: [] }),
     }
   )
 );

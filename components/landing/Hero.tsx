@@ -21,20 +21,20 @@ export function Hero() {
           </span>
 
           <h1 className="font-display text-4xl leading-[1.1] text-ink dark:text-offwhite sm:text-5xl lg:text-6xl">
-            Nutrição personalizada para{" "}
-            <span className="text-gradient-gold">transformar sua saúde</span>
+            Nutrição baseada em{" "}
+            <span className="text-gradient-gold">ciência, estratégia e acompanhamento personalizado</span>
           </h1>
 
           <p className="mt-6 max-w-xl font-subtitle text-xl italic leading-relaxed text-ink/70 dark:text-offwhite/70 sm:text-2xl">
-            Cada paciente possui necessidades únicas. Meu atendimento é
-            totalmente individualizado para ajudar você a conquistar
-            resultados duradouros com saúde, equilíbrio e qualidade de vida.
+            Cada paciente recebe um plano alimentar individualizado, elaborado
+            de acordo com seus objetivos, rotina e necessidades, com
+            acompanhamento próximo para garantir resultados consistentes.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Link href="/agendar">
               <Button size="lg" className="group">
-                Agendar Consulta
+                Agendar minha consulta
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>

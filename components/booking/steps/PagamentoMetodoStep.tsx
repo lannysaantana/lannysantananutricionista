@@ -14,7 +14,7 @@ export function PagamentoMetodoStep() {
   const { data: plans, isLoading: loadingPlans } = useServicePlans(true);
   const { data: paymentSettings, isLoading: loadingSettings } = usePaymentSettings();
 
-  const plan = plans?.find((p) => p.key === data.resolvedPlan);
+  const plan = plans?.find((p) => p.key === data.plan);
 
   if (loadingPlans || loadingSettings || !plan || !paymentSettings) {
     return (

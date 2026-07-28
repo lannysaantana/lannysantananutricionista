@@ -37,6 +37,70 @@ export const objectiveSchema = z.enum([
 
 export const consultationTypeSchema = z.enum(["presencial", "teleconsulta"]);
 
+export const sexSchema = z.enum(["feminino", "masculino", "prefiro_nao_informar"]);
+
+export const birthDateSchema = z
+  .string()
+  .min(1, "Selecione sua data de nascimento")
+  .refine((value) => {
+    const date = new Date(`${value}T00:00:00`);
+    if (Number.isNaN(date.getTime())) return false;
+    const ageInYears = (Date.now() - date.getTime()) / (365.25 * 24 * 60 * 60 * 1000);
+    return ageInYears >= 12 && ageInYears <= 110;
+  }, "Digite uma data de nascimento válida");
+
+export const citySchema = z.string().trim().min(2, "Digite sua cidade");
+export const stateSchema = z.string().trim().length(2, "Selecione o estado");
+export const professionSchema = z.string().trim().min(2, "Digite sua profissão");
+
+export const heightCmSchema = z
+  .number({ invalid_type_error: "Digite uma altura válida" })
+  .min(100, "Digite uma altura válida")
+  .max(230, "Digite uma altura válida");
+
+export const weightKgSchema = z
+  .number({ invalid_type_error: "Digite um peso válido" })
+  .min(30, "Digite um peso válido")
+  .max(300, "Digite um peso válido");
+
+/** Per-step schema groups — the new intake steps collect several fields per screen. */
+export const dadosPessoaisSchema = z.object({
+  name: nameSchema,
+  birthDate: birthDateSchema,
+  sex: sexSchema,
+});
+
+export const contatoSchema = z.object({
+  phone: phoneSchema,
+  whatsapp: phoneSchema,
+  email: emailSchema,
+});
+
+export const localizacaoSchema = z.object({
+  city: citySchema,
+  state: stateSchema,
+  profession: professionSchema,
+});
+
+export const saudeSchema = z
+  .object({
+    heightCm: heightCmSchema,
+    weightKg: weightKgSchema,
+    medicationsInUse: z.string().trim().optional().default(""),
+    usesGlp1: z.boolean(),
+    glp1Medication: z.string().trim().optional().default(""),
+    hasPhysicalLimitation: z.boolean(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.usesGlp1 && data.glp1Medication.trim().length === 0) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["glp1Medication"],
+        message: "Digite qual medicamento você utiliza",
+      });
+    }
+  });
+
 export const bookingSummarySchema = z.object({
   name: nameSchema,
   age: ageSchema,

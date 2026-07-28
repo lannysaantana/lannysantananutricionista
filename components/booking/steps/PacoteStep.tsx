@@ -16,7 +16,7 @@ export function PacoteStep() {
   const { data: plans, isLoading } = useServicePlans(true);
   const { isNewPatient } = useIsNewPatient(data.email);
 
-  const plan = plans?.find((p) => p.key === data.resolvedPlan);
+  const plan = plans?.find((p) => p.key === data.plan);
 
   if (isLoading || !plan) {
     return (
@@ -54,7 +54,7 @@ export function PacoteStep() {
         </div>
 
         <Button size="lg" className="mt-6 w-full" onClick={() => choosePacoteTier("base")}>
-          Quero {plan.name.toLowerCase().startsWith("protocolo") ? "este protocolo" : "este programa"}
+          Quero {plan.key === "consulta_online" ? "esta consulta" : "este plano"}
         </Button>
       </StepShell>
     );

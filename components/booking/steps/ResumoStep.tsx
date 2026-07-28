@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { differenceInYears } from "date-fns";
 import { User, Target, CalendarDays, Clock, Wallet, CreditCard } from "lucide-react";
 import { useBookingStore } from "@/hooks/useBookingStore";
 import { useServicePlans, usePaymentSettings } from "@/hooks/usePricing";
@@ -22,7 +23,7 @@ export function ResumoStep() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const plan = plans?.find((p) => p.key === data.resolvedPlan);
+  const plan = plans?.find((p) => p.key === data.plan);
 
   if (loadingPlans || loadingSettings || !plan || !paymentSettings) {
     return (
@@ -50,13 +51,24 @@ export function ResumoStep() {
 
     const payload: OrderInsert = {
       name: data.name,
-      age: data.age ?? 0,
+      age: data.birthDate ? differenceInYears(new Date(), new Date(`${data.birthDate}T00:00:00`)) : 0,
+      birth_date: data.birthDate || null,
+      sex: data.sex,
       phone: data.phone,
+      whatsapp: data.whatsapp,
       email: data.email,
+      city: data.city,
+      state: data.state,
+      profession: data.profession,
       objective: data.objective ?? "outro",
       other_objective: data.otherObjective || null,
-      has_locomotion_limitation: Boolean(data.hasLocomotionLimitation),
-      service_plan_key: data.resolvedPlan ?? "presencial",
+      height_cm: data.heightCm,
+      weight_kg: data.weightKg,
+      medications_in_use: data.medicationsInUse || null,
+      uses_glp1: Boolean(data.usesGlp1),
+      glp1_medication: data.usesGlp1 ? data.glp1Medication || null : null,
+      has_locomotion_limitation: Boolean(data.hasPhysicalLimitation),
+      service_plan_key: data.plan ?? "consulta_online",
       selected_tier: data.tier,
       payment_method: data.paymentMethod ?? "pix",
       accepted_reschedule_policy: data.acceptedReschedulePolicy,

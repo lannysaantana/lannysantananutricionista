@@ -40,7 +40,7 @@ export function AboutMe() {
           className="lg:order-1"
         >
           <h2 className="font-display text-3xl text-ink dark:text-offwhite sm:text-4xl">
-            Sobre Mim
+            Prazer, sou Lanny Santana
           </h2>
           <p className="mt-3 inline-flex items-center gap-2 font-sans text-sm uppercase tracking-widest text-sage-dark dark:text-gold">
             <Stethoscope className="h-4 w-4" />
@@ -48,10 +48,12 @@ export function AboutMe() {
           </p>
 
           <p className="mt-6 font-subtitle text-xl italic leading-relaxed text-ink/70 dark:text-offwhite/70">
-            Acredito que nutrição de verdade se constrói com escuta, respeito
-            ao seu tempo e ciência — sem fórmulas prontas. Meu propósito é
-            caminhar ao seu lado até você conquistar uma relação leve e
-            duradoura com a comida.
+            Meu objetivo é promover mudanças sustentáveis e individualizadas,
+            sem dietas restritivas e respeitando a sua rotina. Acredito que
+            nutrição de verdade se constrói com escuta, ciência e
+            acompanhamento próximo — por isso todo o atendimento acontece por
+            teleconsulta, com a mesma atenção e cuidado de um consultório,
+            onde você estiver.
           </p>
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2">

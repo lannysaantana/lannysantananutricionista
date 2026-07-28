@@ -5,13 +5,12 @@ import Link from "next/link";
 import { useBookingStore } from "@/hooks/useBookingStore";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { Logo } from "@/components/ui/Logo";
-import { NameStep } from "@/components/booking/steps/NameStep";
-import { AgeStep } from "@/components/booking/steps/AgeStep";
-import { PhoneStep } from "@/components/booking/steps/PhoneStep";
-import { EmailStep } from "@/components/booking/steps/EmailStep";
+import { DadosPessoaisStep } from "@/components/booking/steps/DadosPessoaisStep";
+import { ContatoStep } from "@/components/booking/steps/ContatoStep";
+import { LocalizacaoStep } from "@/components/booking/steps/LocalizacaoStep";
 import { ObjectiveStep } from "@/components/booking/steps/ObjectiveStep";
+import { SaudeStep } from "@/components/booking/steps/SaudeStep";
 import { ServicoStep } from "@/components/booking/steps/ServicoStep";
-import { LimitacaoStep } from "@/components/booking/steps/LimitacaoStep";
 import { PacoteStep } from "@/components/booking/steps/PacoteStep";
 import { PagamentoMetodoStep } from "@/components/booking/steps/PagamentoMetodoStep";
 import { AgendaSessoesStep } from "@/components/booking/steps/AgendaSessoesStep";
@@ -20,13 +19,12 @@ import { ResumoStep } from "@/components/booking/steps/ResumoStep";
 import type { BookingStep } from "@/types/booking";
 
 const STEP_COMPONENTS: Record<BookingStep, React.ComponentType> = {
-  nome: NameStep,
-  idade: AgeStep,
-  telefone: PhoneStep,
-  email: EmailStep,
+  dados_pessoais: DadosPessoaisStep,
+  contato: ContatoStep,
+  localizacao: LocalizacaoStep,
   objetivo: ObjectiveStep,
+  saude: SaudeStep,
   servico: ServicoStep,
-  limitacao: LimitacaoStep,
   pacote: PacoteStep,
   pagamento_metodo: PagamentoMetodoStep,
   agenda_sessoes: AgendaSessoesStep,

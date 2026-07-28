@@ -7,41 +7,49 @@ import { cn } from "@/lib/utils";
 
 const FAQ_ITEMS = [
   {
-    question: "Como funciona a consulta?",
+    question: "Como funciona a consulta online?",
     answer:
-      "Na consulta inicial, entendemos juntos seu histórico, rotina e objetivos para montar um plano alimentar 100% individualizado.",
+      "A consulta acontece por videochamada, em horário marcado. Antes do atendimento você recebe o link, orientações para a Bioimpedância 3D e um questionário de Pré-Consulta, para chegarmos já alinhadas sobre seu histórico e objetivos.",
   },
   {
     question: "Quanto tempo dura?",
     answer:
-      "A consulta inicial dura em média 50 a 60 minutos, com tempo dedicado a ouvir seu histórico com calma.",
+      "A consulta inicial dura em média 60 minutos, com tempo dedicado a ouvir seu histórico com calma. Retornos e encontros de acompanhamento costumam ser mais curtos.",
   },
   {
-    question: "Aceita plano de saúde?",
+    question: "Preciso fazer exames?",
+    answer:
+      "Não é obrigatório, mas exames laboratoriais recentes ajudam a personalizar ainda mais o seu plano. Quando disponíveis, eles são avaliados junto com você na consulta.",
+  },
+  {
+    question: "Como funciona a Bioimpedância 3D?",
+    answer:
+      "É uma avaliação de composição corporal feita remotamente, que ajuda a acompanhar sua evolução em massa muscular, percentual de gordura e outros indicadores ao longo do tempo. Você recebe as orientações para realizá-la antes de cada consulta.",
+  },
+  {
+    question: "Recebo cardápio?",
+    answer:
+      "Sim, você recebe um plano alimentar personalizado por escrito, com lista de substituições, logo após a consulta.",
+  },
+  {
+    question: "Como funciona o suporte pelo WhatsApp?",
+    answer:
+      "Cada plano inclui um período de suporte via WhatsApp para tirar dúvidas relacionadas ao seu plano alimentar entre uma consulta e outra.",
+  },
+  {
+    question: "Posso remarcar?",
+    answer:
+      "Sim, é só entrar em contato pelo WhatsApp com antecedência para reagendar seu horário, respeitando a política de reagendamento do seu plano.",
+  },
+  {
+    question: "Aceita convênio?",
     answer:
       "O atendimento é particular. Posso emitir recibo para você solicitar reembolso junto ao seu convênio, quando aplicável.",
   },
   {
-    question: "Como funciona a teleconsulta?",
+    question: "Quais formas de pagamento?",
     answer:
-      "A teleconsulta acontece por videochamada em horário marcado. Você recebe o link por e-mail e WhatsApp antes do horário.",
-  },
-  {
-    question: "Como funciona o retorno?",
-    answer:
-      "O retorno acompanha sua evolução e ajusta o plano conforme necessário, geralmente entre 20 e 30 dias após a consulta inicial.",
-  },
-  {
-    question: "Posso remarcar?",
-    answer: "Sim, é só entrar em contato pelo WhatsApp com antecedência para reagendar seu horário.",
-  },
-  {
-    question: "Como é o pagamento?",
-    answer: "O pagamento é feito de forma segura no ato do agendamento, via Pix, boleto ou cartão.",
-  },
-  {
-    question: "Recebo plano alimentar?",
-    answer: "Sim, você recebe um plano alimentar personalizado por escrito logo após a consulta.",
+      "Aceito Pix e cartão de crédito, com pagamento feito de forma segura no ato do agendamento.",
   },
 ];
 

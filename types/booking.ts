@@ -23,6 +23,14 @@ export const PATIENT_OBJECTIVE_LABELS: Record<PatientObjective, string> = {
   outro: "Outro",
 };
 
+export type PatientSex = "feminino" | "masculino" | "prefiro_nao_informar";
+
+export const PATIENT_SEX_LABELS: Record<PatientSex, string> = {
+  feminino: "Feminino",
+  masculino: "Masculino",
+  prefiro_nao_informar: "Prefiro não informar",
+};
+
 export interface TimeSlot {
   /** ISO date, e.g. "2026-07-10" */
   date: string;
@@ -35,17 +43,29 @@ export interface TimeSlot {
 
 export interface BookingFormData {
   name: string;
-  age: number | null;
+  birthDate: string; // ISO date, e.g. "1990-05-20"
+  sex: PatientSex | null;
+
   phone: string;
+  whatsapp: string;
   email: string;
+
+  city: string;
+  state: string;
+  profession: string;
+
   objective: PatientObjective | null;
   otherObjective?: string;
 
-  /** Raw pick from the 5-card service step, before the limitation override. */
-  selectedPlan: ServicePlanKey | null;
-  hasLocomotionLimitation: boolean | null;
-  /** selectedPlan, unless the limitation forces teleconsulta. */
-  resolvedPlan: ServicePlanKey | null;
+  heightCm: number | null;
+  weightKg: number | null;
+  medicationsInUse: string;
+  usesGlp1: boolean | null;
+  glp1Medication?: string;
+  hasPhysicalLimitation: boolean | null;
+
+  /** Teleconsulta-only — all active plans use the same session flow. */
+  plan: ServicePlanKey | null;
   tier: PlanTier;
 
   paymentMethod: PaymentMethod | null;
@@ -59,14 +79,23 @@ export interface BookingFormData {
 
 export const INITIAL_BOOKING_DATA: BookingFormData = {
   name: "",
-  age: null,
+  birthDate: "",
+  sex: null,
   phone: "",
+  whatsapp: "",
   email: "",
+  city: "",
+  state: "",
+  profession: "",
   objective: null,
   otherObjective: "",
-  selectedPlan: null,
-  hasLocomotionLimitation: null,
-  resolvedPlan: null,
+  heightCm: null,
+  weightKg: null,
+  medicationsInUse: "",
+  usesGlp1: null,
+  glp1Medication: "",
+  hasPhysicalLimitation: null,
+  plan: null,
   tier: "base",
   paymentMethod: null,
   sessions: [],
@@ -77,13 +106,12 @@ export const INITIAL_BOOKING_DATA: BookingFormData = {
 
 /** Ordered step identifiers driving the wizard's progress bar. */
 export type BookingStep =
-  | "nome"
-  | "idade"
-  | "telefone"
-  | "email"
+  | "dados_pessoais"
+  | "contato"
+  | "localizacao"
   | "objetivo"
+  | "saude"
   | "servico"
-  | "limitacao"
   | "pacote"
   | "pagamento_metodo"
   | "agenda_sessoes"
@@ -97,8 +125,12 @@ export interface BookingProgressGroup {
 }
 
 export const BOOKING_PROGRESS_GROUPS: BookingProgressGroup[] = [
-  { key: "dados", label: "Dados", steps: ["nome", "idade", "telefone", "email", "objetivo"] },
-  { key: "servico", label: "Serviço", steps: ["servico", "limitacao", "pacote"] },
+  {
+    key: "dados",
+    label: "Dados",
+    steps: ["dados_pessoais", "contato", "localizacao", "objetivo", "saude"],
+  },
+  { key: "servico", label: "Serviço", steps: ["servico", "pacote"] },
   { key: "pagamento", label: "Pagamento", steps: ["pagamento_metodo"] },
   { key: "agenda", label: "Agenda", steps: ["agenda_sessoes"] },
   { key: "confirmacao", label: "Confirmação", steps: ["politicas", "resumo"] },

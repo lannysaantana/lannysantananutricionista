@@ -13,74 +13,40 @@ export function applyCardSurcharge(amountCents: number, surchargePercent: number
 }
 
 /**
- * Session scheduling templates per plan/tier — the number of sessions,
- * their labels and suggested spacing. Prices and feature copy come from
- * the `service_plans` table (admin-editable); this part is structural
- * scheduling logic, not a price, so it stays in code.
+ * Session scheduling templates per plan — the number of sessions, their
+ * labels and suggested spacing. Prices and feature copy come from the
+ * `service_plans` table (admin-editable); this part is structural
+ * scheduling logic, not a price, so it stays in code. All active plans are
+ * teleconsulta-only single packages (no tiers).
  */
-export function getPackageSessions(plan: ServicePlanKey, tier: PlanTier): PendingSession[] {
+export function getPackageSessions(plan: ServicePlanKey): PendingSession[] {
   const empty = { date: null, time: null };
 
-  if (plan === "presencial") {
-    const sessions: PendingSession[] = [
-      { key: "consulta_inicial", label: "Consulta Inicial", sequence: 1, suggestedOffsetDays: 0, ...empty },
-      { key: "avaliacao_fisica", label: "Avaliação Física", sequence: 2, suggestedOffsetDays: 20, ...empty },
-    ];
-    if (tier === "recommended") {
-      sessions.push({
-        key: "segunda_consulta",
-        label: "Segunda Consulta Presencial",
-        sequence: 3,
-        suggestedOffsetDays: 40,
-        ...empty,
-      });
-    }
-    return sessions;
-  }
-
-  if (plan === "teleconsulta") {
-    const sessions: PendingSession[] = [
-      { key: "consulta_online", label: "Teleconsulta", sequence: 1, suggestedOffsetDays: 0, ...empty },
-      { key: "retorno_online", label: "Retorno Online", sequence: 2, suggestedOffsetDays: 15, ...empty },
-    ];
-    if (tier === "recommended") {
-      sessions.push({
-        key: "segunda_consulta",
-        label: "Segunda Consulta Online",
-        sequence: 3,
-        suggestedOffsetDays: 30,
-        ...empty,
-      });
-    }
-    return sessions;
-  }
-
-  if (plan === "protocolo_trimestral") {
+  if (plan === "consulta_online") {
     return [
-      { key: "consulta_1", label: "Consulta 1", sequence: 1, suggestedOffsetDays: 0, ...empty },
-      { key: "retorno_1", label: "Retorno 1", sequence: 2, suggestedOffsetDays: 15, ...empty },
-      { key: "consulta_2", label: "Consulta 2", sequence: 3, suggestedOffsetDays: 45, ...empty },
-      { key: "retorno_2", label: "Retorno 2", sequence: 4, suggestedOffsetDays: 60, ...empty },
-      { key: "consulta_3", label: "Consulta 3", sequence: 5, suggestedOffsetDays: 90, ...empty },
+      {
+        key: "consulta_online",
+        label: "Consulta Nutricional Online",
+        sequence: 1,
+        suggestedOffsetDays: 0,
+        ...empty,
+      },
     ];
   }
 
-  if (plan === "glp1_essencial") {
+  if (plan === "plano_plus") {
     return [
-      { key: "teleconsulta", label: "Teleconsulta", sequence: 1, suggestedOffsetDays: 0, ...empty },
-      { key: "retorno_online", label: "Retorno Online", sequence: 2, suggestedOffsetDays: 30, ...empty },
+      { key: "primeira_consulta", label: "Primeira Consulta", sequence: 1, suggestedOffsetDays: 0, ...empty },
+      { key: "retorno", label: "Retorno", sequence: 2, suggestedOffsetDays: 15, ...empty },
+      { key: "nova_consulta", label: "Nova Consulta", sequence: 3, suggestedOffsetDays: 30, ...empty },
     ];
   }
 
-  // glp1_premium
+  // glp1_suporte_metabolico
   return [
-    { key: "teleconsulta_1", label: "Teleconsulta 1", sequence: 1, suggestedOffsetDays: 0, ...empty },
-    { key: "teleconsulta_2", label: "Teleconsulta 2", sequence: 2, suggestedOffsetDays: 30, ...empty },
-    { key: "teleconsulta_3", label: "Teleconsulta 3", sequence: 3, suggestedOffsetDays: 60, ...empty },
+    { key: "avaliacao_inicial", label: "Avaliação Inicial", sequence: 1, suggestedOffsetDays: 0, ...empty },
+    { key: "encontro_2", label: "2º Encontro", sequence: 2, suggestedOffsetDays: 20, ...empty },
+    { key: "encontro_3", label: "3º Encontro", sequence: 3, suggestedOffsetDays: 40, ...empty },
+    { key: "encontro_4", label: "4º Encontro — Reavaliação", sequence: 4, suggestedOffsetDays: 60, ...empty },
   ];
-}
-
-/** Whether choosing this plan should ask the locomotion-limitation question. */
-export function usesInPersonVisits(plan: ServicePlanKey): boolean {
-  return plan === "presencial" || plan === "protocolo_trimestral";
 }

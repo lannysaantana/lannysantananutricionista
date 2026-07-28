@@ -1,6 +1,6 @@
 "use client";
 
-import { Building2, Video, Trophy, Syringe, Sparkles } from "lucide-react";
+import { Video, Trophy, Syringe } from "lucide-react";
 import { useBookingStore } from "@/hooks/useBookingStore";
 import { useServicePlans } from "@/hooks/usePricing";
 import { StepShell } from "@/components/booking/StepShell";
@@ -9,12 +9,10 @@ import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { formatCurrencyBRL } from "@/utils/formatters";
 import type { ServicePlanKey } from "@/types/order";
 
-const PLAN_ICONS: Record<ServicePlanKey, typeof Building2> = {
-  presencial: Building2,
-  teleconsulta: Video,
-  protocolo_trimestral: Trophy,
-  glp1_essencial: Syringe,
-  glp1_premium: Sparkles,
+const PLAN_ICONS: Record<ServicePlanKey, typeof Video> = {
+  consulta_online: Video,
+  plano_plus: Trophy,
+  glp1_suporte_metabolico: Syringe,
 };
 
 export function ServicoStep() {
@@ -33,7 +31,7 @@ export function ServicoStep() {
               label={plan.name}
               description={`${formatCurrencyBRL(plan.base_price_cents)} · ${plan.duration_minutes} min`}
               icon={PLAN_ICONS[plan.key]}
-              selected={data.selectedPlan === plan.key}
+              selected={data.plan === plan.key}
               onSelect={() => chooseService(plan.key)}
             />
           ))}

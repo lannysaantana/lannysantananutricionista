@@ -9,7 +9,6 @@ const QUICK_LINKS = [
   { href: "#como-funciona", label: "Como Funciona" },
   { href: "#servicos", label: "Serviços" },
   { href: "#sobre-mim", label: "Sobre Mim" },
-  { href: "#depoimentos", label: "Depoimentos" },
   { href: "#faq", label: "Perguntas Frequentes" },
 ];
 
