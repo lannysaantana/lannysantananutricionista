@@ -27,7 +27,12 @@ export function ResumoStep() {
 
   if (loadingPlans || loadingSettings || !plan || !paymentSettings) {
     return (
-      <StepShell title="Confira os detalhes do seu atendimento" onBack={back} wide>
+      <StepShell
+      title="Confira os detalhes do seu atendimento"
+      subtitle="Prontinho! Vamos começar essa jornada juntas rumo aos seus objetivos."
+      onBack={back}
+      wide
+    >
         <LoadingSpinner />
       </StepShell>
     );
@@ -106,7 +111,12 @@ export function ResumoStep() {
   }
 
   return (
-    <StepShell title="Confira os detalhes do seu atendimento" onBack={back} wide>
+    <StepShell
+      title="Confira os detalhes do seu atendimento"
+      subtitle="Prontinho! Vamos começar essa jornada juntas rumo aos seus objetivos."
+      onBack={back}
+      wide
+    >
       <div className="divide-y divide-sage/10 overflow-hidden rounded-2xl border border-sage/10 bg-white/70 dark:bg-white/5">
         <SummaryRow icon={User} label="Nome" value={data.name} />
         <SummaryRow

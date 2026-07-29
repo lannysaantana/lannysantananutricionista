@@ -3,6 +3,7 @@ import { Hero } from "@/components/landing/Hero";
 import { Differentials } from "@/components/landing/Differentials";
 import { HowItWorks } from "@/components/landing/HowItWorks";
 import { Services } from "@/components/landing/Services";
+import { PlanComparison } from "@/components/landing/PlanComparison";
 import { AboutMe } from "@/components/landing/AboutMe";
 import { FAQ } from "@/components/landing/FAQ";
 import { FinalCTA } from "@/components/landing/FinalCTA";
@@ -18,6 +19,7 @@ export default function HomePage() {
       <Differentials />
       <HowItWorks />
       <Services />
+      <PlanComparison />
       <AboutMe />
       <FAQ />
       <FinalCTA />

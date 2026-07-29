@@ -73,7 +73,7 @@ export function SaudeStep() {
   const usesGlp1 = watch("usesGlp1");
 
   return (
-    <StepShell title="Um pouco sobre sua saúde" subtitle="Para personalizar seu atendimento." onBack={back}>
+    <StepShell title="Um pouco sobre sua saúde" subtitle="Estamos quase lá! Vamos melhorar juntas ao longo desse processo." onBack={back}>
       <form
         onSubmit={handleSubmit((values) => {
           setField("heightCm", values.heightCm);
@@ -112,6 +112,10 @@ export function SaudeStep() {
               error={errors.weightKg?.message}
               {...register("weightKg", { valueAsNumber: true })}
             />
+            <p className="mt-1.5 font-sans text-xs text-ink/50 dark:text-offwhite/50">
+              Não precisa se pesar agora — pode usar o último peso que você
+              lembra ou uma estimativa.
+            </p>
           </div>
         </div>
 

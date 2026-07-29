@@ -10,7 +10,12 @@ export function PoliticasStep() {
   const canContinue = data.acceptedReschedulePolicy && data.acceptedCancellationPolicy;
 
   return (
-    <StepShell title="Antes de confirmar, leia com atenção" onBack={back} wide>
+    <StepShell
+      title="Antes de confirmar, leia com atenção"
+      subtitle="Só mais um passo e está tudo pronto."
+      onBack={back}
+      wide
+    >
       <div className="space-y-5">
         <div className="rounded-2xl border border-sage/10 bg-white/70 p-5 dark:bg-white/5">
           <h3 className="font-display text-lg text-ink dark:text-offwhite">

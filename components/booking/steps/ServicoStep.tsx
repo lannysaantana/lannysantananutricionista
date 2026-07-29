@@ -20,7 +20,12 @@ export function ServicoStep() {
   const { data: plans, isLoading } = useServicePlans(true);
 
   return (
-    <StepShell title="Escolha o tipo de atendimento" onBack={back} wide>
+    <StepShell
+      title="Escolha o tipo de atendimento"
+      subtitle="Você está a poucos passos de começar sua jornada de transformação."
+      onBack={back}
+      wide
+    >
       {isLoading ? (
         <LoadingSpinner />
       ) : (
