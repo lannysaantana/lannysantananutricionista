@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { differenceInYears } from "date-fns";
-import { User, Target, CalendarDays, Clock, Wallet, CreditCard } from "lucide-react";
+import { User, Target, CalendarDays, Clock, Wallet, CreditCard, AlertCircle } from "lucide-react";
 import { useBookingStore } from "@/hooks/useBookingStore";
 import { useServicePlans, usePaymentSettings } from "@/hooks/usePricing";
 import { StepShell } from "@/components/booking/StepShell";
@@ -17,11 +16,11 @@ import { PATIENT_OBJECTIVE_LABELS } from "@/types/booking";
 import type { OrderInsert, OrderSessionInsert } from "@/types/order";
 
 export function ResumoStep() {
-  const { data, back, reset } = useBookingStore();
+  const { data, back } = useBookingStore();
   const { data: plans, isLoading: loadingPlans } = useServicePlans(true);
   const { data: paymentSettings, isLoading: loadingSettings } = usePaymentSettings();
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const plan = plans?.find((p) => p.key === data.plan);
 
@@ -53,6 +52,7 @@ export function ResumoStep() {
 
   async function handleConfirm() {
     setLoading(true);
+    setError(null);
 
     const payload: OrderInsert = {
       name: data.name,
@@ -102,10 +102,12 @@ export function ResumoStep() {
       sessionStorage.setItem("lanny-last-order-id", order.id);
       window.location.href = checkout.url;
     } catch (err) {
-      console.warn("[booking] createOrder/checkout not fully configured yet:", err);
-      reset();
-      router.push("/pagamento/sucesso?demo=1");
-    } finally {
+      console.error("[booking] Falha ao criar pedido/checkout:", err);
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Não foi possível iniciar o pagamento. Tente novamente em instantes."
+      );
       setLoading(false);
     }
   }
@@ -155,6 +157,13 @@ export function ResumoStep() {
           ))}
         </div>
       </div>
+
+      {error && (
+        <p className="mt-4 flex items-start gap-2 rounded-xl bg-red-50 p-3 font-sans text-sm text-red-600 dark:bg-red-950/30 dark:text-red-400">
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+          {error}
+        </p>
+      )}
 
       <Button size="lg" className="mt-8 w-full" loading={loading} onClick={handleConfirm}>
         Confirmar e pagar
