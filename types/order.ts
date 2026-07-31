@@ -156,6 +156,27 @@ export type PreConsultationResponses = {
   additionalNotes: string;
 };
 
+export const PRE_CONSULTATION_LABELS: Record<keyof PreConsultationResponses, string> = {
+  healthComplaints: "Queixas de saúde",
+  diagnosedConditions: "Condições diagnosticadas",
+  medicationsInUse: "Medicamentos em uso",
+  allergiesOrIntolerances: "Alergias ou intolerâncias",
+  familyHistory: "Histórico familiar",
+  sleepQuality: "Qualidade do sono",
+  waterIntakeLiters: "Ingestão de água",
+  physicalActivity: "Atividade física",
+  bowelHabits: "Hábito intestinal",
+  previousDiets: "Dietas anteriores",
+  mainGoalDescription: "Objetivo principal",
+  breakfast: "Café da manhã",
+  morningSnack: "Lanche da manhã",
+  lunch: "Almoço",
+  afternoonSnack: "Lanche da tarde",
+  dinner: "Jantar",
+  eveningSnack: "Ceia",
+  additionalNotes: "Observações adicionais",
+};
+
 export type PreConsultationForm = {
   id: string;
   order_id: string;

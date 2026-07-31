@@ -14,28 +14,13 @@ import { useServicePlans } from "@/hooks/usePricing";
 import { formatCurrencyBRL, formatDateShort } from "@/utils/formatters";
 import { PATIENT_SEX_LABELS, PATIENT_OBJECTIVE_LABELS, type PatientSex } from "@/types/booking";
 import { cn } from "@/lib/utils";
-import type { Order, OrderSession, PreConsultationForm, PreConsultationResponses } from "@/types/order";
-
-const PRE_CONSULTATION_LABELS: Record<keyof PreConsultationResponses, string> = {
-  healthComplaints: "Queixas de saúde",
-  diagnosedConditions: "Condições diagnosticadas",
-  medicationsInUse: "Medicamentos em uso",
-  allergiesOrIntolerances: "Alergias ou intolerâncias",
-  familyHistory: "Histórico familiar",
-  sleepQuality: "Qualidade do sono",
-  waterIntakeLiters: "Ingestão de água",
-  physicalActivity: "Atividade física",
-  bowelHabits: "Hábito intestinal",
-  previousDiets: "Dietas anteriores",
-  mainGoalDescription: "Objetivo principal",
-  breakfast: "Café da manhã",
-  morningSnack: "Lanche da manhã",
-  lunch: "Almoço",
-  afternoonSnack: "Lanche da tarde",
-  dinner: "Jantar",
-  eveningSnack: "Ceia",
-  additionalNotes: "Observações adicionais",
-};
+import {
+  PRE_CONSULTATION_LABELS,
+  type Order,
+  type OrderSession,
+  type PreConsultationForm,
+  type PreConsultationResponses,
+} from "@/types/order";
 
 function PreConsultationSection({ form }: { form: PreConsultationForm | undefined }) {
   const [open, setOpen] = useState(false);

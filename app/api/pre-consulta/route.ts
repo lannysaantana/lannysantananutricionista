@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/server";
-import type { PreConsultationFormInsert } from "@/types/order";
+import { sendPreConsultationNotificationEmail } from "@/services/emailService";
+import type { Order, PreConsultationFormInsert } from "@/types/order";
 
 /**
  * Submits the Pré-Consulta form server-side. Same reason as
@@ -27,6 +28,16 @@ export async function POST(request: Request) {
   if (error || !data) {
     console.error("[api/pre-consulta] Falha ao enviar Pré-Consulta:", error);
     return NextResponse.json({ error: "Falha ao enviar Pré-Consulta" }, { status: 500 });
+  }
+
+  const { data: order } = await supabase
+    .from("orders")
+    .select("*")
+    .eq("id", input.order_id)
+    .single();
+
+  if (order) {
+    await sendPreConsultationNotificationEmail(order as Order, input.responses);
   }
 
   return NextResponse.json(data);

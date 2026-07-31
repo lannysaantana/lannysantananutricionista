@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/server";
-import type { OrderStatus } from "@/types/order";
+import { sendOrderConfirmationEmail } from "@/services/emailService";
+import type { Order, OrderSession, OrderStatus } from "@/types/order";
 
 type OrderPaymentStatus = "pending" | "paid" | "failed" | "refunded";
 
@@ -41,8 +42,8 @@ async function handleNotification(request: Request) {
   }
 
   const payment = await paymentRes.json();
-  const orderId: string | undefined = payment.external_reference;
-  if (!orderId) return NextResponse.json({ received: true });
+  const externalReference: string | undefined = payment.external_reference;
+  if (!externalReference) return NextResponse.json({ received: true });
 
   const paymentStatus: OrderPaymentStatus =
     payment.status === "approved"
@@ -53,13 +54,37 @@ async function handleNotification(request: Request) {
           ? "failed"
           : "pending";
 
+  const supabase = createAdminClient();
+
+  // Desafio Fit Club signups use a "fitclub:<id>" external_reference so this
+  // shared handler can tell them apart from teleconsulta `orders`.
+  if (externalReference.startsWith("fitclub:")) {
+    const signupId = externalReference.slice("fitclub:".length);
+    await supabase.from("challenge_signups").update({ payment_status: paymentStatus }).eq("id", signupId);
+    return NextResponse.json({ received: true });
+  }
+
   const changes: { payment_status: OrderPaymentStatus; status?: OrderStatus } = {
     payment_status: paymentStatus,
   };
   if (paymentStatus === "paid") changes.status = "confirmed";
 
-  const supabase = createAdminClient();
-  await supabase.from("orders").update(changes).eq("id", orderId);
+  const { data: order } = await supabase
+    .from("orders")
+    .update(changes)
+    .eq("id", externalReference)
+    .select()
+    .single();
+
+  if (paymentStatus === "paid" && order) {
+    const { data: sessions } = await supabase
+      .from("order_sessions")
+      .select("*")
+      .eq("order_id", externalReference)
+      .order("sequence", { ascending: true });
+
+    await sendOrderConfirmationEmail(order as Order, (sessions ?? []) as OrderSession[]);
+  }
 
   return NextResponse.json({ received: true });
 }
