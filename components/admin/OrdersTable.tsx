@@ -2,14 +2,85 @@
 
 import { useState } from "react";
 import { differenceInYears } from "date-fns";
-import { CheckCircle, XCircle, ChevronDown, ChevronUp, Clock } from "lucide-react";
+import { CheckCircle, XCircle, ChevronDown, ChevronUp, Clock, ClipboardList } from "lucide-react";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
-import { useOrderMutations, useOrderSessionsGrouped, useOrders } from "@/hooks/useOrders";
+import {
+  useOrderMutations,
+  useOrderSessionsGrouped,
+  useOrders,
+  usePreConsultationFormsGrouped,
+} from "@/hooks/useOrders";
 import { useServicePlans } from "@/hooks/usePricing";
 import { formatCurrencyBRL, formatDateShort } from "@/utils/formatters";
 import { PATIENT_SEX_LABELS, PATIENT_OBJECTIVE_LABELS, type PatientSex } from "@/types/booking";
 import { cn } from "@/lib/utils";
-import type { Order, OrderSession } from "@/types/order";
+import type { Order, OrderSession, PreConsultationForm, PreConsultationResponses } from "@/types/order";
+
+const PRE_CONSULTATION_LABELS: Record<keyof PreConsultationResponses, string> = {
+  healthComplaints: "Queixas de saúde",
+  diagnosedConditions: "Condições diagnosticadas",
+  medicationsInUse: "Medicamentos em uso",
+  allergiesOrIntolerances: "Alergias ou intolerâncias",
+  familyHistory: "Histórico familiar",
+  sleepQuality: "Qualidade do sono",
+  waterIntakeLiters: "Ingestão de água",
+  physicalActivity: "Atividade física",
+  bowelHabits: "Hábito intestinal",
+  previousDiets: "Dietas anteriores",
+  mainGoalDescription: "Objetivo principal",
+  breakfast: "Café da manhã",
+  morningSnack: "Lanche da manhã",
+  lunch: "Almoço",
+  afternoonSnack: "Lanche da tarde",
+  dinner: "Jantar",
+  eveningSnack: "Ceia",
+  additionalNotes: "Observações adicionais",
+};
+
+function PreConsultationSection({ form }: { form: PreConsultationForm | undefined }) {
+  const [open, setOpen] = useState(false);
+
+  if (!form) {
+    return (
+      <div className="flex items-center gap-2 border-t border-sage/5 px-4 py-3 font-sans text-xs text-ink/40 dark:text-offwhite/40">
+        <ClipboardList className="h-3.5 w-3.5 shrink-0" />
+        Pré-Consulta ainda não preenchida
+      </div>
+    );
+  }
+
+  return (
+    <div className="border-t border-sage/5">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="flex w-full items-center gap-2 px-4 py-3 font-sans text-xs font-medium text-ink dark:text-offwhite"
+      >
+        <ClipboardList className="h-3.5 w-3.5 shrink-0 text-sage-dark dark:text-gold" />
+        Pré-Consulta (anamnese + recordatório)
+        {open ? (
+          <ChevronUp className="ml-auto h-3.5 w-3.5" />
+        ) : (
+          <ChevronDown className="ml-auto h-3.5 w-3.5" />
+        )}
+      </button>
+      {open && (
+        <div className="grid grid-cols-1 gap-3 px-4 pb-4 sm:grid-cols-2">
+          {(Object.keys(PRE_CONSULTATION_LABELS) as (keyof PreConsultationResponses)[]).map((key) => (
+            <div key={key}>
+              <p className="font-sans text-[10px] uppercase tracking-wide text-ink/40 dark:text-offwhite/40">
+                {PRE_CONSULTATION_LABELS[key]}
+              </p>
+              <p className="whitespace-pre-wrap font-sans text-xs text-ink/80 dark:text-offwhite/80">
+                {form.responses[key] || "—"}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 function patientAge(order: Order): number | null {
   if (order.birth_date) return differenceInYears(new Date(), new Date(`${order.birth_date}T00:00:00`));
@@ -140,7 +211,15 @@ function SessionRow({ session }: { session: OrderSession }) {
   );
 }
 
-function OrderRow({ order, sessions }: { order: Order; sessions: OrderSession[] }) {
+function OrderRow({
+  order,
+  sessions,
+  preConsultationForm,
+}: {
+  order: Order;
+  sessions: OrderSession[];
+  preConsultationForm: PreConsultationForm | undefined;
+}) {
   const { confirmPayment, cancel } = useOrderMutations();
   const { data: plans } = useServicePlans();
   const [expanded, setExpanded] = useState(false);
@@ -209,6 +288,7 @@ function OrderRow({ order, sessions }: { order: Order; sessions: OrderSession[] 
           {sessions.map((session) => (
             <SessionRow key={session.id} session={session} />
           ))}
+          <PreConsultationSection form={preConsultationForm} />
         </div>
       )}
     </div>
@@ -218,6 +298,7 @@ function OrderRow({ order, sessions }: { order: Order; sessions: OrderSession[] 
 export function OrdersTable() {
   const { data: orders, isLoading } = useOrders();
   const { data: sessionsByOrder } = useOrderSessionsGrouped();
+  const { data: preConsultationByOrder } = usePreConsultationFormsGrouped();
 
   if (isLoading) return <LoadingSpinner />;
 
@@ -233,7 +314,12 @@ export function OrdersTable() {
     <div className="overflow-x-auto rounded-2xl border border-sage/10 bg-white/70 dark:bg-white/5">
       <div className="min-w-[900px]">
         {orders.map((order) => (
-          <OrderRow key={order.id} order={order} sessions={sessionsByOrder?.[order.id] ?? []} />
+          <OrderRow
+            key={order.id}
+            order={order}
+            sessions={sessionsByOrder?.[order.id] ?? []}
+            preConsultationForm={preConsultationByOrder?.[order.id]}
+          />
         ))}
       </div>
     </div>

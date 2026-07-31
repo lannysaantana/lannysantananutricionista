@@ -138,3 +138,17 @@ export async function getPreConsultationForm(
   if (error) throw new Error(`Falha ao carregar Pré-Consulta: ${error.message}`);
   return data as PreConsultationForm | null;
 }
+
+export async function listAllPreConsultationFormsGrouped(): Promise<
+  Record<string, PreConsultationForm>
+> {
+  const supabase = createClient();
+  const { data, error } = await supabase.from(PRE_CONSULTATION_TABLE).select("*");
+  if (error) throw new Error(`Falha ao carregar Pré-Consultas: ${error.message}`);
+
+  const grouped: Record<string, PreConsultationForm> = {};
+  for (const form of (data ?? []) as PreConsultationForm[]) {
+    grouped[form.order_id] = form;
+  }
+  return grouped;
+}

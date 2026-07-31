@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   cancelOrder,
   confirmOrderPayment,
+  listAllPreConsultationFormsGrouped,
   listAllSessionsGrouped,
   listOrders,
   rescheduleOrderSession,
@@ -13,6 +14,7 @@ import type { OrderSession } from "@/types/order";
 
 const ORDERS_KEY = "orders";
 const SESSIONS_KEY = "order-sessions";
+const PRE_CONSULTATION_KEY = "pre-consultation-forms";
 
 export function useOrders() {
   return useQuery({ queryKey: [ORDERS_KEY], queryFn: listOrders });
@@ -20,6 +22,10 @@ export function useOrders() {
 
 export function useOrderSessionsGrouped() {
   return useQuery({ queryKey: [SESSIONS_KEY], queryFn: listAllSessionsGrouped });
+}
+
+export function usePreConsultationFormsGrouped() {
+  return useQuery({ queryKey: [PRE_CONSULTATION_KEY], queryFn: listAllPreConsultationFormsGrouped });
 }
 
 export function useOrderMutations() {
