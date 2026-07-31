@@ -8,12 +8,11 @@ import { useServicePlans, usePaymentSettings } from "@/hooks/usePricing";
 import { StepShell } from "@/components/booking/StepShell";
 import { Button } from "@/components/ui/Button";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
-import { createOrder, createOrderSessions } from "@/services/orderService";
 import { paymentService } from "@/services/paymentService";
 import { getSelectedPriceCents, applyCardSurcharge } from "@/lib/packages";
 import { formatCurrencyBRL, formatDateLong } from "@/utils/formatters";
 import { PATIENT_OBJECTIVE_LABELS } from "@/types/booking";
-import type { OrderInsert, OrderSessionInsert } from "@/types/order";
+import type { OrderInsert } from "@/types/order";
 
 export function ResumoStep() {
   const { data, back } = useBookingStore();
@@ -82,17 +81,26 @@ export function ResumoStep() {
     };
 
     try {
-      const order = await createOrder(payload);
-
-      const sessionsPayload: OrderSessionInsert[] = data.sessions.map((s) => ({
-        order_id: order.id,
+      const sessionsPayload = data.sessions.map((s) => ({
         session_key: s.key,
         label: s.label,
         sequence: s.sequence,
         session_date: s.date ?? "",
         session_time: s.time ?? "",
       }));
-      await createOrderSessions(sessionsPayload);
+
+      const orderResponse = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ order: payload, sessions: sessionsPayload }),
+      });
+
+      if (!orderResponse.ok) {
+        const body = await orderResponse.json().catch(() => ({}));
+        throw new Error(body.error ?? "Não foi possível criar o pedido.");
+      }
+
+      const order: { id: string; amount_cents: number } = await orderResponse.json();
 
       const checkout = await paymentService.createCheckout({
         id: order.id,

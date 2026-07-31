@@ -1,9 +1,7 @@
 import { createClient } from "@/lib/supabase/client";
 import type {
   Order,
-  OrderInsert,
   OrderSession,
-  OrderSessionInsert,
   PreConsultationForm,
   PreConsultationFormInsert,
 } from "@/types/order";
@@ -12,21 +10,11 @@ const ORDERS_TABLE = "orders";
 const SESSIONS_TABLE = "order_sessions";
 const PRE_CONSULTATION_TABLE = "pre_consultation_forms";
 
-export async function createOrder(input: OrderInsert): Promise<Order> {
-  const supabase = createClient();
-  const { data, error } = await supabase.from(ORDERS_TABLE).insert(input).select().single();
-  if (error) throw new Error(`Falha ao criar pedido: ${error.message}`);
-  return data as Order;
-}
-
-export async function createOrderSessions(
-  sessions: OrderSessionInsert[]
-): Promise<OrderSession[]> {
-  const supabase = createClient();
-  const { data, error } = await supabase.from(SESSIONS_TABLE).insert(sessions).select();
-  if (error) throw new Error(`Falha ao agendar sessões: ${error.message}`);
-  return (data ?? []) as OrderSession[];
-}
+// Order/session creation for the public booking flow goes through
+// app/api/orders/route.ts (service role) — anon has no SELECT policy on
+// `orders`, so a client-side `.insert().select()` fails RLS on the
+// read-back half of INSERT ... RETURNING even though the insert itself
+// is allowed.
 
 export async function listOrders(): Promise<Order[]> {
   const supabase = createClient();
@@ -126,14 +114,16 @@ export async function getBookedSessionTimes(date: string): Promise<string[]> {
 export async function submitPreConsultationForm(
   input: PreConsultationFormInsert
 ): Promise<PreConsultationForm> {
-  const supabase = createClient();
-  const { data, error } = await supabase
-    .from(PRE_CONSULTATION_TABLE)
-    .insert(input)
-    .select()
-    .single();
-  if (error) throw new Error(`Falha ao enviar Pré-Consulta: ${error.message}`);
-  return data as PreConsultationForm;
+  const response = await fetch("/api/pre-consulta", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(input),
+  });
+  if (!response.ok) {
+    const body = await response.json().catch(() => ({}));
+    throw new Error(body.error ?? "Falha ao enviar Pré-Consulta");
+  }
+  return response.json();
 }
 
 export async function getPreConsultationForm(
