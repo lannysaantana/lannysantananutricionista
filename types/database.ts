@@ -11,6 +11,12 @@ import type {
   ServicePlanUpdate,
   PaymentSettings,
 } from "./order";
+import type {
+  ChallengeSignup,
+  ChallengeSignupInsert,
+  ChallengeAnamnese,
+  ChallengeAnamneseInsert,
+} from "./challenge";
 
 /**
  * Minimal typed schema for the Supabase client (see lib/supabase/schema.sql
@@ -80,6 +86,18 @@ export interface Database {
         Row: PaymentSettings;
         Insert: Partial<PaymentSettings>;
         Update: Partial<PaymentSettings>;
+        Relationships: [];
+      };
+      challenge_signups: {
+        Row: ChallengeSignup;
+        Insert: ChallengeSignupInsert;
+        Update: Partial<ChallengeSignup>;
+        Relationships: [];
+      };
+      challenge_anamnese: {
+        Row: ChallengeAnamnese;
+        Insert: ChallengeAnamneseInsert;
+        Update: Partial<ChallengeAnamnese>;
         Relationships: [];
       };
     };
