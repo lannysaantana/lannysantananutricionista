@@ -3,6 +3,20 @@ import { createAdminClient } from "@/lib/supabase/server";
 import { SITE_URL } from "@/lib/config";
 
 /**
+ * The app is reachable on more than one domain (the main site and
+ * lannyfitclub.com.br, routed to the same deployment) — back_urls must
+ * point at whichever domain the shopper actually used, not a fixed env
+ * var, or she'd bounce to the wrong brand after paying.
+ */
+function resolveSiteOrigin(request: Request): string {
+  const origin = request.headers.get("origin");
+  if (origin) return origin;
+  const host = request.headers.get("host");
+  if (host) return `${host.startsWith("localhost") ? "http" : "https"}://${host}`;
+  return SITE_URL;
+}
+
+/**
  * Creates a Mercado Pago Checkout Pro preference for an existing challenge
  * signup and returns the hosted checkout URL. Runs server-side only —
  * MERCADOPAGO_ACCESS_TOKEN must never reach the browser bundle.
@@ -38,7 +52,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Inscrição não encontrada" }, { status: 404 });
   }
 
-  const isPublicSite = SITE_URL.startsWith("https://");
+  const siteOrigin = resolveSiteOrigin(request);
+  const isPublicSite = siteOrigin.startsWith("https://");
 
   const preference = {
     items: [
@@ -51,9 +66,9 @@ export async function POST(request: Request) {
     ],
     external_reference: `fitclub:${signup.id}`,
     back_urls: {
-      success: `${SITE_URL}/desafio-fitclub/pagamento/sucesso?signup_id=${signup.id}`,
-      failure: `${SITE_URL}/desafio-fitclub/pagamento/erro?signup_id=${signup.id}`,
-      pending: `${SITE_URL}/desafio-fitclub/pagamento/pendente?signup_id=${signup.id}`,
+      success: `${siteOrigin}/desafio-fitclub/pagamento/sucesso?signup_id=${signup.id}`,
+      failure: `${siteOrigin}/desafio-fitclub/pagamento/erro?signup_id=${signup.id}`,
+      pending: `${siteOrigin}/desafio-fitclub/pagamento/pendente?signup_id=${signup.id}`,
     },
     ...(isPublicSite ? { auto_return: "approved" as const } : {}),
     notification_url: `${SITE_URL}/api/webhooks/mercadopago`,
