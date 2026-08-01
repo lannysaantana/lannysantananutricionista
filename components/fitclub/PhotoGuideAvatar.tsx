@@ -33,22 +33,30 @@ function FrontFigure({ className }: { className?: string }) {
 function SideFigure({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 140 240" className={className} aria-hidden>
-      {/* head, profile with a small nose bump */}
-      <circle cx="70" cy="26" r="20" fill="#0B0B0B" />
-      <path d="M88 20 q8 3 5 10 q-2 4 -7 2 Z" fill="#0B0B0B" />
+      {/* head, turned sideways — narrower oval + a clear nose */}
+      <ellipse cx="76" cy="26" rx="15" ry="19" fill="#0B0B0B" />
+      <path d="M90 20 q11 4 7 12 q-3 5 -9 2 Z" fill="#0B0B0B" />
       {/* neck */}
-      <rect x="64" y="42" width="14" height="10" fill="#0B0B0B" />
-      {/* one arm, straight at the side */}
-      <rect x="52" y="58" width="16" height="78" rx="8" fill="#0B0B0B" />
-      <circle cx="60" cy="140" r="9" fill="#0B0B0B" />
-      {/* torso, narrower (profile width) with a slight chest/back curve */}
-      <path d="M58 54 H90 Q98 90 90 128 H64 Q58 90 58 54 Z" fill="#0B0B0B" />
+      <rect x="70" y="42" width="13" height="10" fill="#0B0B0B" />
+      {/* one arm, held forward and away from the torso so it reads as separate */}
+      <rect
+        x="38"
+        y="60"
+        width="15"
+        height="72"
+        rx="7.5"
+        fill="#0B0B0B"
+        transform="rotate(8 45.5 96)"
+      />
+      <circle cx="50" cy="130" r="8.5" fill="#0B0B0B" />
+      {/* torso — clean narrow rectangle reads as "thin from the side" */}
+      <rect x="62" y="52" width="26" height="78" rx="6" fill="#0B0B0B" />
       {/* hips */}
-      <path d="M62 122 H92 L88 150 H60 Z" fill="#0B0B0B" />
-      {/* one leg, straight */}
-      <rect x="66" y="146" width="20" height="82" rx="10" fill="#0B0B0B" />
-      {/* foot, pointing sideways */}
-      <ellipse cx="86" cy="233" rx="16" ry="6" fill="#0B0B0B" />
+      <path d="M64 124 H90 L86 150 H66 Z" fill="#0B0B0B" />
+      {/* one leg */}
+      <rect x="68" y="146" width="20" height="80" rx="10" fill="#0B0B0B" />
+      {/* foot, pointing sideways to sell the profile */}
+      <ellipse cx="94" cy="231" rx="20" ry="7" fill="#0B0B0B" />
     </svg>
   );
 }
