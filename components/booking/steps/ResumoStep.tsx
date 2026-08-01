@@ -101,13 +101,18 @@ export function ResumoStep() {
       }
 
       const order: { id: string; amount_cents: number } = await orderResponse.json();
+      sessionStorage.setItem("lanny-last-order-id", order.id);
+
+      if (data.paymentMethod === "pix") {
+        window.location.href = `/pagamento/pix?order_id=${order.id}&amount=${order.amount_cents}`;
+        return;
+      }
 
       const checkout = await paymentService.createCheckout({
         id: order.id,
         amount_cents: order.amount_cents,
       });
 
-      sessionStorage.setItem("lanny-last-order-id", order.id);
       window.location.href = checkout.url;
     } catch (err) {
       console.error("[booking] Falha ao criar pedido/checkout:", err);

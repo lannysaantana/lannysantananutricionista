@@ -9,6 +9,15 @@ export const BUSINESS_WHATSAPP = process.env.WHATSAPP_BUSINESS_NUMBER ?? "550000
 export const WHATSAPP_DEFAULT_MESSAGE =
   "Olá! Gostaria de tirar uma dúvida sobre as consultas.";
 
+// ---- Pix direto (sem intermediário) ------------------------------------
+// Pagamentos via Pix vão direto para essa conta — sem taxa, mas sem
+// confirmação automática. O pedido fica "pending" até o admin confirmar
+// manualmente o recebimento (comprovante enviado pelo paciente via WhatsApp).
+export const PIX_KEY = "83996350592";
+export const PIX_KEY_TYPE = "Telefone";
+export const PIX_RECIPIENT_NAME = "Hedlanny Santana Bezerra";
+export const PIX_BANK_NAME = "C6 Bank";
+
 // TODO: e-mail e Instagram ainda são placeholders — substitua pelos reais
 // quando disponíveis. Endereço completo será enviado por WhatsApp após a
 // aprovação da consulta, por isso mostramos apenas o bairro por enquanto.
