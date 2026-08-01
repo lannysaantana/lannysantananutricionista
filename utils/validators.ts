@@ -119,3 +119,50 @@ export const bookingSummarySchema = z.object({
 });
 
 export type BookingSummaryInput = z.infer<typeof bookingSummarySchema>;
+
+/** Desafio Fit Club — signup form (name, whatsapp, email, objective). */
+export const challengeObjectiveSchema = z.enum(["emagrecimento", "hipertrofia"]);
+
+export const challengeSignupSchema = z.object({
+  name: nameSchema,
+  whatsapp: phoneSchema,
+  email: emailSchema,
+  objective: challengeObjectiveSchema,
+  couponCode: z.string().trim().optional().default(""),
+});
+
+export type ChallengeSignupInput = z.infer<typeof challengeSignupSchema>;
+
+/** Desafio Fit Club — anamnese preenchida após o pagamento confirmado. */
+export const challengeAnamneseSchema = z.object({
+  age: z
+    .number({ invalid_type_error: "Digite uma idade válida" })
+    .int()
+    .min(12, "Idade mínima de 12 anos")
+    .max(100, "Digite uma idade válida"),
+  weightKg: z
+    .number({ invalid_type_error: "Digite um peso válido" })
+    .min(30, "Digite um peso válido")
+    .max(300, "Digite um peso válido"),
+  heightCm: z
+    .number({ invalid_type_error: "Digite uma altura válida" })
+    .min(100, "Digite uma altura válida")
+    .max(230, "Digite uma altura válida"),
+  foodPreferences: z.string().trim().optional().default(""),
+  foodAversions: z.string().trim().optional().default(""),
+  allergies: z.string().trim().optional().default(""),
+  mealSchedule: z.string().trim().optional().default(""),
+  breakfast: z.string().trim().optional().default(""),
+  morningSnack: z.string().trim().optional().default(""),
+  lunch: z.string().trim().optional().default(""),
+  afternoonSnack: z.string().trim().optional().default(""),
+  dinner: z.string().trim().optional().default(""),
+  trainingFrequency: z.string().trim().optional().default(""),
+  trainingTime: z.string().trim().optional().default(""),
+  medicationsInUse: z.string().trim().optional().default(""),
+  waistCm: z.number().optional(),
+  hipCm: z.number().optional(),
+  referredBy: z.string().trim().optional().default(""),
+});
+
+export type ChallengeAnamneseInput = z.infer<typeof challengeAnamneseSchema>;

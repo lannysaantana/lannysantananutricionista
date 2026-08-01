@@ -2,7 +2,7 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { LogOut, Settings } from "lucide-react";
+import { LogOut, Settings, Dumbbell } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { Logo } from "@/components/ui/Logo";
 import { Button } from "@/components/ui/Button";
@@ -37,6 +37,20 @@ export function AdminHeader() {
             )}
           >
             Agenda
+          </Link>
+          <Link
+            href="/admin/desafio-fitclub"
+            className={cn(
+              "rounded-full px-4 py-1.5 font-sans text-sm transition-colors",
+              pathname === "/admin/desafio-fitclub"
+                ? "bg-sage-dark text-offwhite"
+                : "text-ink/70 hover:text-ink dark:text-offwhite/70"
+            )}
+          >
+            <span className="flex items-center gap-1.5">
+              <Dumbbell className="h-3.5 w-3.5" />
+              Fit Club
+            </span>
           </Link>
           <Link
             href="/admin/configuracoes"
