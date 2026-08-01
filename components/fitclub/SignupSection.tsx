@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
-import { Dumbbell, Scale, CheckCircle2, Check, Tag } from "lucide-react";
+import { Dumbbell, Scale, CheckCircle2, Check, Tag, Wallet, CreditCard } from "lucide-react";
 import { ClubButton } from "@/components/fitclub/ui/ClubButton";
 import { StickerCard, ClubTag } from "@/components/fitclub/ui/StickerCard";
 import { FloatingSticker } from "@/components/fitclub/ui/Stickers";
@@ -61,6 +61,7 @@ function ObjectiveOption({
 
 export function SignupSection() {
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [paymentMethod, setPaymentMethod] = useState<"pix" | "cartao">("pix");
   const {
     register,
     control,
@@ -88,6 +89,11 @@ export function SignupSection() {
       if (!signupRes.ok) throw new Error(signupData?.error ?? "Falha ao criar inscrição");
 
       sessionStorage.setItem("lanny-fitclub-signup-id", signupData.id);
+
+      if (paymentMethod === "pix") {
+        window.location.href = `/desafio-fitclub/pagamento/pix?signup_id=${signupData.id}&amount=${displayPriceCents}`;
+        return;
+      }
 
       const checkoutRes = await fetch("/api/challenge/checkout", {
         method: "POST",
@@ -275,13 +281,35 @@ export function SignupSection() {
                   )}
                 </div>
 
+                <div>
+                  <label className="mb-2 block font-club-sans text-sm font-bold text-club-black/70">
+                    Forma de pagamento
+                  </label>
+                  <div className="space-y-3">
+                    <ObjectiveOption
+                      label="Pix"
+                      icon={Wallet}
+                      selected={paymentMethod === "pix"}
+                      onSelect={() => setPaymentMethod("pix")}
+                    />
+                    <ObjectiveOption
+                      label="Cartão de crédito"
+                      icon={CreditCard}
+                      selected={paymentMethod === "cartao"}
+                      onSelect={() => setPaymentMethod("cartao")}
+                    />
+                  </div>
+                </div>
+
                 {submitError && <p className="text-sm font-bold text-club-pink">{submitError}</p>}
 
                 <ClubButton type="submit" size="lg" variant="pink" className="w-full" loading={isSubmitting}>
                   Quero Participar
                 </ClubButton>
                 <p className="text-center font-club-sans text-xs text-club-black/50">
-                  Você será redirecionada ao pagamento seguro do Mercado Pago.
+                  {paymentMethod === "pix"
+                    ? "Você vai receber a chave Pix pra pagar direto, sem intermediário."
+                    : "Você será redirecionada ao pagamento seguro do Mercado Pago."}
                 </p>
               </form>
             </StickerCard>
