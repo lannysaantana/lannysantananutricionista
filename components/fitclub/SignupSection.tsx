@@ -131,7 +131,13 @@ export function SignupSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
+            className="relative"
           >
+            {!isCouponValid && (
+              <span className="absolute -top-4 right-4 z-10 rotate-[4deg] rounded-full border-[3px] border-club-black bg-club-pink px-4 py-1.5 font-club-sans text-xs font-bold text-club-black shadow-sticker sm:right-8">
+                Já fez o desafio? Cupom DIVA = {formatCurrencyBRL(CHALLENGE_DIVA_PRICE_CENTS)}
+              </span>
+            )}
             <StickerCard bg="neon" rotate="-1.5deg" className="p-8 sm:p-10">
               <p className="font-club-sans text-xs font-bold uppercase tracking-widest text-club-black/60">
                 Investimento

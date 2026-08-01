@@ -190,12 +190,16 @@ export function AnamneseForm({ signupId }: { signupId: string }) {
           <div className="grid gap-4 sm:grid-cols-2">
             <TextField
               label="Cintura (cm)"
-              registerProps={register("waistCm", { valueAsNumber: true })}
+              registerProps={register("waistCm", {
+                setValueAs: (v) => (v === "" ? undefined : Number(v)),
+              })}
               error={errors.waistCm?.message}
             />
             <TextField
               label="Quadril (cm)"
-              registerProps={register("hipCm", { valueAsNumber: true })}
+              registerProps={register("hipCm", {
+                setValueAs: (v) => (v === "" ? undefined : Number(v)),
+              })}
               error={errors.hipCm?.message}
             />
           </div>
