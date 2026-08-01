@@ -33,9 +33,10 @@ export const BUSINESS_INFO = {
 
 // ---- Desafio Fit Club (21 dias) -------------------------------------------
 export const CHALLENGE_PRICE_CENTS = 11990;
-export const CHALLENGE_START_DATE_LABEL = "segunda-feira, 03 de agosto";
+export const CHALLENGE_START_DATE_LABEL = "terça-feira, 04 de agosto";
+export const CHALLENGE_END_DATE_LABEL = "24 de agosto";
 export const CHALLENGE_PROOF_WHATSAPP = "83982025003";
-export const CHALLENGE_ANAMNESE_DEADLINE_LABEL = "domingo, dia 02 às 12h";
+export const CHALLENGE_ANAMNESE_DEADLINE_LABEL = "segunda-feira, dia 03 às 12h";
 
 /** Coupon for participants of the previous edition — validated server-side in /api/challenge/signups. */
 export const CHALLENGE_DIVA_COUPON_CODE = "DIVA";

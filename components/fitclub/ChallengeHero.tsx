@@ -7,7 +7,7 @@ import { ChallengeLogo } from "@/components/fitclub/ChallengeLogo";
 import { ClubTag } from "@/components/fitclub/ui/StickerCard";
 import { FloatingSticker, Checkerboard } from "@/components/fitclub/ui/Stickers";
 import { formatCurrencyBRL } from "@/utils/formatters";
-import { CHALLENGE_PRICE_CENTS, CHALLENGE_START_DATE_LABEL } from "@/lib/config";
+import { CHALLENGE_PRICE_CENTS, CHALLENGE_START_DATE_LABEL, CHALLENGE_END_DATE_LABEL } from "@/lib/config";
 
 const HIGHLIGHTS = [
   { label: "21 dias de desafio", bg: "bg-club-neon" },
@@ -98,7 +98,7 @@ export function ChallengeHero() {
             </ClubButton>
           </a>
           <p className="font-club-sans text-xs font-bold uppercase tracking-widest text-club-white/50">
-            Início {CHALLENGE_START_DATE_LABEL}
+            De {CHALLENGE_START_DATE_LABEL} até {CHALLENGE_END_DATE_LABEL}
           </p>
         </motion.div>
       </div>

@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import {
   CHALLENGE_PRICE_CENTS,
   CHALLENGE_START_DATE_LABEL,
+  CHALLENGE_END_DATE_LABEL,
   CHALLENGE_DIVA_COUPON_CODE,
   CHALLENGE_DIVA_PRICE_CENTS,
 } from "@/lib/config";
@@ -121,7 +122,7 @@ export function SignupSection() {
             Garanta sua vaga
           </h2>
           <p className="mt-4 font-club-sans text-lg text-club-white/70">
-            Início {CHALLENGE_START_DATE_LABEL}.
+            De {CHALLENGE_START_DATE_LABEL} até {CHALLENGE_END_DATE_LABEL}.
           </p>
         </motion.div>
 
