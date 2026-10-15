@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Outubro Rosa</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --sage:#7A8574; --sage-dark:#5E685A; --offwhite:#F7F4ED; --beige:#EFE8DD; --gold:#C9AF73; --ink:#2D2D2D;
+          --pink:#D98A9E; --pink-soft:#F7E3E8; --pink-dark:#A95168; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { width:1080px; height:1920px; }
+  body { background:var(--offwhite); color:var(--ink); font-family:'Poppins',sans-serif; overflow:hidden; position:relative; }
+  .ring { position:absolute; border:2px solid rgba(217,138,158,.35); border-radius:50%; }
+  .r1 { width:520px; height:520px; top:-240px; right:-210px; }
+  .r2 { width:380px; height:380px; top:560px; left:-280px; border-color:rgba(122,133,116,.18); }
+
+  header { text-align:center; padding:130px 64px 0; position:relative; }
+  header img { width:460px; }
+  .tag { display:inline-flex; align-items:center; gap:10px; margin-top:30px; background:var(--pink-soft); color:var(--pink-dark);
+         border-radius:999px; padding:8px 24px 8px 16px; font-size:21px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; }
+  .tag svg { width:30px; height:30px; }
+  h1 { font-family:'Playfair Display',serif; font-weight:500; font-size:64px; line-height:1.1; color:var(--sage-dark); margin-top:18px; }
+  h1 em { font-style:italic; color:var(--pink-dark); }
+  .lead { font-size:23px; line-height:1.45; color:#55554f; margin:18px 56px 0; }
+
+  .habits { margin:30px 64px 0; background:#fff; border:1px solid var(--beige); border-radius:26px; padding:22px 34px 18px;
+            box-shadow:0 10px 24px -14px rgba(94,104,90,.35); }
+  .habits h2 { font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:600; font-size:30px; color:var(--pink-dark); margin-bottom:4px; }
+  .h { display:flex; align-items:center; gap:18px; padding:11px 0; font-size:23px; line-height:1.3; color:#4a4a45; }
+  .h + .h { border-top:1px dashed #ecdfe2; }
+  .ck { flex:0 0 36px; height:36px; border-radius:50%; background:var(--pink-soft); display:grid; place-items:center; }
+  .ck svg { width:18px; height:18px; stroke:var(--pink-dark); stroke-width:2.8; stroke-linecap:round; stroke-linejoin:round; fill:none; }
+
+  .turn { text-align:center; margin:34px 60px 0; }
+  .turn .a { font-size:20px; letter-spacing:.28em; text-transform:uppercase; font-weight:500; color:var(--sage); }
+  .turn .b { font-family:'Playfair Display',serif; font-size:42px; line-height:1.16; color:var(--sage-dark); margin-top:8px; }
+  .turn .b em { font-style:italic; color:var(--pink-dark); }
+
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:24px 56px 0; }
+  .card { background:#fff; border-radius:20px; padding:18px 20px; display:flex; gap:14px; align-items:center;
+          border:1px solid var(--beige); box-shadow:0 8px 20px -14px rgba(94,104,90,.35); }
+  .ic { flex:0 0 52px; height:52px; border-radius:50%; background:var(--beige); display:grid; place-items:center; }
+  .ic svg { width:26px; height:26px; stroke:var(--sage-dark); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  .card h3 { font-size:22px; font-weight:600; line-height:1.25; color:var(--sage-dark); }
+  .card p { font-size:18px; line-height:1.3; color:#6a6a64; margin-top:2px; }
+
+  footer { position:absolute; left:0; right:0; bottom:0; background:var(--sage-dark); color:var(--offwhite);
+           padding:36px 64px 150px; text-align:center; border-radius:56px 56px 0 0; }
+  .pill { display:inline-flex; align-items:center; gap:8px; font-size:20px; font-weight:500; background:var(--pink); color:#fff;
+          border-radius:999px; padding:8px 26px; letter-spacing:.03em; }
+  .cta { font-family:'Playfair Display',serif; font-size:48px; line-height:1.12; margin-top:16px; color:#fff; }
+  .cta em { font-style:italic; color:#F2BFCB; }
+  .btn { display:inline-flex; align-items:center; gap:12px; margin-top:22px; background:var(--offwhite); color:var(--sage-dark);
+         font-size:24px; font-weight:600; border-radius:999px; padding:16px 38px; }
+  .btn svg { width:24px; height:24px; stroke:var(--sage-dark); stroke-width:2.2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+  .link { margin-top:14px; font-size:20px; letter-spacing:.04em; color:#cfd3c9; }
+  .note { margin-top:14px; font-size:17px; color:#bfc4b9; font-style:italic; }
+</style>
+</head>
+<body>
+<div class="ring r1"></div><div class="ring r2"></div>
+
+<header>
+  <img src="../../public/logo/logo-horizontal-sage.png" alt="Lanny Santana Nutricionista">
+  <div>
+    <span class="tag">
+      <svg viewBox="0 0 32 32"><path d="M16 3c-3.4 0-6 2.7-6 6.2 0 2.4 1.3 4.8 3 7.4L6 27.5l3.6 1.5L16 19.4l6.4 9.6 3.6-1.5-7-10.9c1.7-2.6 3-5 3-7.4C22 5.7 19.4 3 16 3Zm0 3c1.7 0 3 1.4 3 3.2 0 1.5-1.1 3.6-3 6.4-1.9-2.8-3-4.9-3-6.4C13 7.4 14.3 6 16 6Z" fill="#D98A9E"/></svg>
+      Outubro Rosa
+    </span>
+  </div>
+  <h1>Cuidar de você<br><em>também é prevenção</em></h1>
+  <p class="lead">Outubro é o mês de conscientização sobre o câncer de mama. E o autocuidado começa nas escolhas do dia a dia, inclusive no seu&nbsp;prato.</p>
+</header>
+
+<section class="habits">
+  <h2>Hábitos que fazem parte desse cuidado</h2>
+  <div class="h"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Alimentação rica em frutas, verduras e fibras</div>
+  <div class="h"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Peso corporal saudável</div>
+  <div class="h"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Menos ultraprocessados e bebidas alcoólicas</div>
+  <div class="h"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Corpo em movimento</div>
+</section>
+
+<section class="turn">
+  <div class="a">Só neste mês</div>
+  <div class="b">Planos <em>especiais</em> de<br>acompanhamento nutricional</div>
+</section>
+
+<section class="grid">
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+    <div><h3>Bioimpedância InBody</h3><p>Sua composição corporal real</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+    <div><h3>Consulta de 1 hora</h3><p>Escuta atenta do seu caso</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg></div>
+    <div><h3>Plano sob medida</h3><p>Para a sua rotina e objetivos</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></div>
+    <div><h3>30 dias no WhatsApp</h3><p>Suporte na adaptação</p></div></div>
+</section>
+
+<footer>
+  <div class="pill">✦ Condição especial válida até 31/10</div>
+  <div class="cta">Neste Outubro Rosa,<br><em>escolha cuidar de você</em></div>
+  <div class="btn">Agende sua consulta <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+  <div class="link">linktr.ee/lannysaantana</div>
+  <div class="note">Mantenha seus exames em dia e converse com seu médico.</div>
+</footer>
+</body>
+</html>
