@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Anúncio dor e solução</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --sage:#7A8574; --sage-dark:#5E685A; --offwhite:#F7F4ED; --beige:#EFE8DD; --gold:#C9AF73; --ink:#2D2D2D; --rose:#B4786A; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { width:1080px; height:1920px; }
+  body { background:var(--offwhite); color:var(--ink); font-family:'Poppins',sans-serif; overflow:hidden; position:relative; }
+  .ring { position:absolute; border:2px solid rgba(201,175,115,.35); border-radius:50%; }
+  .r1 { width:520px; height:520px; top:-240px; right:-210px; }
+  .r2 { width:380px; height:380px; top:520px; left:-280px; border-color:rgba(122,133,116,.18); }
+
+  header { text-align:center; padding:130px 64px 0; position:relative; }
+  header img { width:480px; }
+  .kicker { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:36px; color:var(--rose); margin-top:34px; }
+  h1 { font-family:'Playfair Display',serif; font-weight:500; font-size:62px; line-height:1.12; color:var(--sage-dark); margin-top:6px; }
+  h1 em { font-style:italic; color:var(--ink); }
+
+  .pains { margin:34px 64px 0; background:#fff; border:1px solid var(--beige); border-radius:26px; padding:26px 34px;
+           box-shadow:0 10px 24px -14px rgba(94,104,90,.35); }
+  .pain { display:flex; align-items:center; gap:18px; padding:12px 0; font-size:25px; line-height:1.3; color:#4a4a45; }
+  .pain + .pain { border-top:1px dashed #e4dccd; }
+  .x { flex:0 0 38px; height:38px; border-radius:50%; background:#F3E4DF; display:grid; place-items:center; }
+  .x svg { width:18px; height:18px; stroke:var(--rose); stroke-width:2.6; stroke-linecap:round; fill:none; }
+
+  .turn { text-align:center; margin:38px 70px 0; }
+  .turn .a { font-size:26px; color:#5a5a55; }
+  .turn .b { font-family:'Playfair Display',serif; font-size:42px; line-height:1.18; color:var(--sage-dark); margin-top:6px; }
+  .turn .b em { font-style:italic; color:var(--gold); }
+
+  .sol-title { text-align:center; margin-top:34px; font-size:20px; letter-spacing:.28em; text-transform:uppercase; font-weight:500; color:var(--sage); }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:18px 56px 0; }
+  .card { background:#fff; border-radius:20px; padding:20px 20px; display:flex; gap:14px; align-items:center;
+          border:1px solid var(--beige); box-shadow:0 8px 20px -14px rgba(94,104,90,.35); }
+  .ic { flex:0 0 52px; height:52px; border-radius:50%; background:var(--beige); display:grid; place-items:center; }
+  .ic svg { width:26px; height:26px; stroke:var(--sage-dark); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  .card h3 { font-size:22px; font-weight:600; line-height:1.25; color:var(--sage-dark); }
+  .card p { font-size:18px; line-height:1.3; color:#6a6a64; margin-top:2px; }
+
+  footer { position:absolute; left:0; right:0; bottom:0; background:var(--sage-dark); color:var(--offwhite);
+           padding:38px 64px 150px; text-align:center; border-radius:56px 56px 0 0; }
+  .gift { display:inline-block; font-size:20px; font-weight:500; background:var(--gold); color:var(--ink);
+          border-radius:999px; padding:8px 26px; letter-spacing:.03em; }
+  .cta { font-family:'Playfair Display',serif; font-size:48px; line-height:1.12; margin-top:18px; color:#fff; }
+  .cta em { font-style:italic; color:var(--gold); }
+  .sub { font-size:22px; color:#dcdfd6; margin-top:12px; }
+  .btn { display:inline-flex; align-items:center; gap:12px; margin-top:22px; background:var(--offwhite); color:var(--sage-dark);
+         font-size:24px; font-weight:600; border-radius:999px; padding:16px 38px; }
+  .btn svg { width:24px; height:24px; stroke:var(--sage-dark); stroke-width:2.2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+  .link { margin-top:14px; font-size:20px; letter-spacing:.04em; color:#cfd3c9; }
+</style>
+</head>
+<body>
+<div class="ring r1"></div><div class="ring r2"></div>
+
+<header>
+  <img src="../../public/logo/logo-horizontal-sage.png" alt="Lanny Santana Nutricionista">
+  <div class="kicker">você se identifica?</div>
+  <h1>Já começou a dieta na segunda e desistiu <em>antes da sexta?</em></h1>
+</header>
+
+<section class="pains">
+  <div class="pain"><span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Dietas restritivas que não cabem na sua rotina</div>
+  <div class="pain"><span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Cansaço, inchaço e falta de energia no dia a dia</div>
+  <div class="pain"><span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Ansiedade e “beliscos” fora de hora</div>
+  <div class="pain"><span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Não saber o que comer para chegar no seu objetivo</div>
+</section>
+
+<section class="turn">
+  <div class="a">O problema não é falta de força de vontade.</div>
+  <div class="b">É seguir um plano que <em>não foi feito para você.</em></div>
+</section>
+
+<div class="sol-title">Como eu te ajudo</div>
+<section class="grid">
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+    <div><h3>Bioimpedância InBody</h3><p>Sua composição corporal real</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+    <div><h3>Consulta de 1 hora</h3><p>Escuta atenta do seu caso</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg></div>
+    <div><h3>Plano sob medida</h3><p>Com o que você gosta de comer</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></div>
+    <div><h3>30 dias no WhatsApp</h3><p>Suporte na adaptação</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg></div>
+    <div><h3>Dieta no aplicativo</h3><p>Lembretes de refeição e água</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+    <div><h3>Receitas e compras</h3><p>+ treinos Movestelth</p></div></div>
+</section>
+
+<footer>
+  <div class="gift">✦ Brindes exclusivos na sua consulta</div>
+  <div class="cta">Comece hoje um plano<br><em>que você consegue seguir</em></div>
+  <div class="sub">Atendimento individualizado, do seu jeito e no seu ritmo.</div>
+  <div class="btn">Agende sua consulta <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+  <div class="link">linktr.ee/lannysaantana</div>
+</footer>
+</body>
+</html>
