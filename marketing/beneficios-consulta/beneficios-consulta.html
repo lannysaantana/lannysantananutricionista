@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Benefícios da consulta</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Cormorant+Garamond:ital,wght@1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --sage:#7A8574; --sage-dark:#5E685A; --offwhite:#F7F4ED; --beige:#EFE8DD; --gold:#C9AF73; --ink:#2D2D2D; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { width:1080px; height:1920px; }
+  body { background:var(--offwhite); color:var(--ink); font-family:'Poppins',sans-serif; overflow:hidden; position:relative; }
+  .ring { position:absolute; border:2px solid rgba(201,175,115,.35); border-radius:50%; }
+  .r1 { width:520px; height:520px; top:-220px; right:-200px; }
+  .r2 { width:380px; height:380px; top:40px; left:-260px; border-color:rgba(122,133,116,.18); }
+
+  header { text-align:center; padding:76px 64px 0; position:relative; }
+  header img { width:600px; }
+  .kicker { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:34px; color:var(--sage); margin-top:40px; }
+  h1 { font-family:'Playfair Display',serif; font-weight:500; font-size:62px; line-height:1.1; color:var(--sage-dark); margin-top:4px; }
+  .pills { display:flex; justify-content:center; gap:16px; margin-top:24px; }
+  .pill { font-size:20px; font-weight:500; letter-spacing:.04em; text-transform:uppercase; color:var(--sage-dark);
+          border:1.5px solid var(--gold); border-radius:999px; padding:10px 24px; background:#fff; }
+  .pill b { color:var(--gold); font-weight:600; }
+
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; padding:36px 48px 0; }
+  .card { background:#fff; border-radius:22px; padding:24px 22px 22px; display:flex; gap:16px; align-items:flex-start;
+          box-shadow:0 2px 0 rgba(94,104,90,.06), 0 10px 24px -14px rgba(94,104,90,.35); border:1px solid var(--beige); }
+  .ic { flex:0 0 56px; height:56px; border-radius:50%; background:var(--beige); display:grid; place-items:center; }
+  .ic svg { width:28px; height:28px; stroke:var(--sage-dark); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  .card h3 { font-size:24px; font-weight:600; line-height:1.2; color:var(--sage-dark); }
+  .card p { font-size:19.5px; font-weight:400; line-height:1.38; color:#5a5a55; margin-top:6px; }
+
+  footer { position:absolute; left:0; right:0; bottom:0; background:var(--sage-dark); color:var(--offwhite);
+           padding:36px 64px 40px; text-align:center; border-radius:56px 56px 0 0; }
+  .inv { font-size:20px; letter-spacing:.32em; text-transform:uppercase; color:var(--gold); font-weight:500; }
+  .month { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:32px; margin-top:6px; color:#e8e3d6; }
+  .price { display:flex; align-items:baseline; justify-content:center; gap:22px; margin-top:6px; }
+  .from { font-size:30px; color:#cfd3c9; }
+  .from s { text-decoration-thickness:2px; text-decoration-color:var(--gold); }
+  .to { font-family:'Playfair Display',serif; font-size:92px; font-weight:600; line-height:1; color:#fff; }
+  .to small { font-size:42px; font-weight:500; margin-right:6px; }
+  .until { display:inline-block; margin-top:14px; font-size:20px; font-weight:500; background:var(--gold); color:var(--ink);
+           border-radius:999px; padding:8px 26px; letter-spacing:.03em; }
+  .link { margin-top:20px; font-size:22px; letter-spacing:.04em; color:#e8e3d6; }
+  .link b { font-weight:600; color:#fff; }
+</style>
+</head>
+<body>
+<div class="ring r1"></div><div class="ring r2"></div>
+
+<header>
+  <img src="../../public/logo/logo-horizontal-sage.png" alt="Lanny Santana Nutricionista">
+  <div class="kicker">o que está incluso no seu atendimento</div>
+  <h1>Benefícios da minha consulta</h1>
+  <div class="pills">
+    <span class="pill"><b>✦</b> Brindes exclusivos</span>
+    <span class="pill"><b>✦</b> 30 dias de acompanhamento</span>
+  </div>
+</header>
+
+<section class="grid">
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+    <div><h3>Bioimpedância com InBody</h3><p>Avaliação completa da composição corporal e de aspectos fisiológicos.</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+    <div><h3>Consulta individualizada de&nbsp;1&nbsp;hora</h3><p>Análise detalhada do seu caso, rotina, objetivos e necessidades.</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg></div>
+    <div><h3>Plano alimentar personalizado</h3><p>De acordo com seus objetivos, preferências e aversões, respeitando sua rotina, cultura e estilo de vida.</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg></div>
+    <div><h3>Lista de substituições</h3><p>Mais flexibilidade para variar sua alimentação no dia a dia.</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></div>
+    <div><h3>Relatório de macronutrientes</h3><p>Acompanhamento de proteínas, carboidratos e gorduras.</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>
+    <div><h3>Suplementação e fitoterápicos</h3><p>Estratégias individualizadas quando houver indicação.</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></div>
+    <div><h3>WhatsApp por 30 dias</h3><p>Suporte durante sua adaptação ao planejamento.</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></div>
+    <div><h3>Lista de compras</h3><p>Mais praticidade e organização no supermercado.</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg></div>
+    <div><h3>Dieta pelo aplicativo</h3><p>Notificações dos horários das refeições e da hidratação.</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+    <div><h3>Receitas</h3><p>Opções práticas para diversificar suas refeições.</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg></div>
+    <div><h3>Clube de benefícios</h3><p>Condições e vantagens exclusivas em empresas parceiras.</p></div></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6.5 6.5v11"/><path d="M17.5 6.5v11"/><path d="M3 9v6"/><path d="M21 9v6"/><path d="M6.5 12h11"/></svg></div>
+    <div><h3>Plataforma de treinos Movestelth</h3><p>Integre alimentação e atividade física à sua rotina.</p></div></div>
+</section>
+
+<footer>
+  <div class="inv">Investimento</div>
+  <div class="month">condição especial de outubro</div>
+  <div class="price"><span class="from">de <s>R$ 320</s> por</span><span class="to"><small>R$</small>280</span></div>
+  <div class="until">válido até 31/10</div>
+  <div class="link">Agende pelo link: <b>linktr.ee/lannysaantana</b></div>
+</footer>
+</body>
+</html>
